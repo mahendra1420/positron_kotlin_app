@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="10dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginEnd="10dp"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/rlAttendance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/newbackground_edit">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_image"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentStart="true"
+            android:layout_gravity="center"
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="3dp"
+            android:layout_marginBottom="1dp"
+            android:src="@drawable/dummy" />
+
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@id/profile_image"
+            android:fontFamily="@font/arialmt"
+            android:gravity="center_vertical"
+            android:text="01. AISHIKA TRIPATHI"
+            android:textColor="@color/menucolor"
+            android:textSize="17sp" />
+
+        <ImageView
+            android:id="@+id/iv_right"
+            android:layout_width="50dp"
+            android:layout_height="51dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="1dp"
+            android:background="@drawable/arrow"
+            android:scaleType="fitXY"
+            android:visibility="visible" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <View
+                android:id="@+id/greenDot"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                android:layout_marginEnd="5dp"
+                android:background="@drawable/green_dot" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:fontFamily="@font/arialmt"
+                android:gravity="center_vertical"
+                android:text="TP"
+                android:textColor="@color/menucolor"
+                android:textSize="17sp" />
+
+            <EditText
+                android:id="@+id/editTextGreen"
+                android:layout_width="35dp"
+                android:layout_height="30dp"
+                android:background="@drawable/newbackground_edit"
+                android:editable="false"
+                android:enabled="false"
+                android:focusable="false"
+                android:inputType="text"
+                android:gravity="center"
+                android:textColor="@color/orangenew"
+                android:textColorHint="@color/orangenew"
+                tools:ignore="Autofill" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <View
+                android:id="@+id/redDot"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                android:layout_marginEnd="5dp"
+                android:background="@drawable/red_dot" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:fontFamily="@font/arialmt"
+                android:gravity="center_vertical"
+                android:text="TA"
+                android:textColor="@color/menucolor"
+
+
+                android:textSize="17sp" />
+
+            <EditText
+                android:id="@+id/editTextRed"
+                android:layout_width="35dp"
+                android:layout_height="30dp"
+                android:background="@drawable/newbackground_edit"
+                android:editable="false"
+                android:enabled="false"
+                android:focusable="false"
+                android:inputType="text"
+                android:gravity="center"
+                android:textColor="@color/orangenew"
+                android:textColorHint="@color/orangenew"
+                tools:ignore="Autofill" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <View
+                android:id="@+id/yellowDot"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                android:layout_marginEnd="5dp"
+                android:background="@drawable/yellow_dot" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:fontFamily="@font/arialmt"
+                android:gravity="center_vertical"
+                android:text="TH"
+                android:textColor="@color/menucolor"
+
+                android:textSize="17sp" />
+
+            <EditText
+                android:id="@+id/editTextYellow"
+                android:layout_width="35dp"
+                android:layout_height="30dp"
+                android:background="@drawable/newbackground_edit"
+                android:editable="false"
+                android:enabled="false"
+                android:focusable="false"
+                android:inputType="text"
+                android:gravity="center"
+                android:textColor="@color/orangenew"
+                android:textColorHint="@color/orangenew"
+                tools:ignore="Autofill,LabelFor" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <View
+                android:id="@+id/orangeDot"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                android:layout_marginEnd="5dp"
+                android:background="@drawable/round_orange" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:fontFamily="@font/arialmt"
+                android:gravity="center_vertical"
+                android:text="RA"
+                android:textColor="@color/menucolor"
+
+
+                android:textSize="17sp" />
+
+            <EditText
+                android:id="@+id/editTextOrange"
+                android:layout_width="35dp"
+                android:layout_height="30dp"
+                android:background="@drawable/newbackground_edit"
+                android:editable="false"
+                android:enabled="false"
+                android:focusable="false"
+                android:inputType="text"
+                android:gravity="center"
+                android:textColor="@color/orangenew"
+                android:textColorHint="@color/orangenew"
+                tools:ignore="Autofill" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

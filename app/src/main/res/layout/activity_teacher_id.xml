@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/back"
+    android:orientation="vertical"
+    tools:context=".activity.TeacherIdActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/image_view"
+                android:layout_width="290dp"
+                android:layout_height="60dp"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:layout_marginTop="100dp"
+                android:padding="10dp"
+                android:src="@drawable/logonew"
+                android:visibility="visible" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_gravity="center"
+                android:layout_marginStart="0dp"
+                android:fontFamily="@font/segoeuiitalic"
+                android:text="A Magical Gateway of Modern Technology"
+                android:textColor="@color/menucolor"
+                android:textSize="17sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/segoeuiitalic"
+                android:text="Welcomes You"
+                android:textColor="@color/menucolor"
+                android:textSize="17sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="34dp"
+                android:fontFamily="@font/segoeuibold"
+                android:text="Teacher Application"
+                android:textColor="@color/menucolor"
+                android:textSize="35sp" />
+
+            <EditText
+                android:id="@+id/editTextSchoolId"
+                style="@style/edittext_login_register"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="65dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/newbackground_edit"
+                android:enabled="true"
+                android:hint="Enter Your School ID "
+                android:inputType="text"
+                android:text=""
+                android:textColor="@color/menucolor"
+                android:textColorHint="@color/menucolor"
+                tools:ignore="Autofill" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnSubmit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="0dp"
+                android:background="@color/edit"
+                android:text="SUBMIT"
+                android:textColor="@color/menucolor"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tvVersion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/segoeuiitalic"
+                android:text=""
+                android:textColor="@color/menucolor"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</LinearLayout>

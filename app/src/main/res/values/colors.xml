@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="primary">#6949cf</color>
+
+    <color name="colorPrimary">#F1336B</color>
+    <color name="colorPrimaryDark">#FFEC0B4F</color>
+    <color name="colorAccent">#D81B60</color>
+
+
+    <color name="darkGray">#F1D242</color>
+    <!--<color name="darkGray">#7C7A7A</color>-->
+    <!--<color name="darkGray">#2C2B2B</color>-->
+
+
+    <color name="red">#DB1E1E</color>
+    <color name="gmail_red">#E83E37</color>
+
+    <color name="green">#257100</color>
+    <color name="blue">#2424C7</color>
+    <color name="facebook_blue">#3E5895</color>
+    <color name="yellow">#EBD31E</color>
+    <color name="transparent_edittext">#60000000</color>
+    <color name="transparent">#00000000</color>
+    <color name="order_card_head">#6F6A66</color>
+    <color name="whiteTransparant">#5CCFCBCB</color>
+
+    <color name="orange">#FF6600</color>
+    <color name="text_Ask">#DF6235</color>
+    <color name="lightGray">#CAC8C8</color>
+    <color name="gray">#5F5F5F</color>
+    <color name="lightGrayBack">#F1ECEC</color>
+    <color name="colorBack">#4B030406</color>
+    <color name="buttonbg">#016502</color>
+    <color name="textbg">#4E2929</color>
+    <color name="cardbg">#F9DDDD</color>
+    <color name="cardback">#b2c8f3</color>
+    <color name="noticecardback">#adb4e2</color>
+    <color name="text">#2c1084</color>
+    <color name="menucolor">#621270</color>
+    <color name="textcolor">#a95e1c</color>
+    <color name="textcolor1">#f6d6d7</color>
+    <color name="appbar">#b27ed5</color>
+    <color name="appbartext">#e1c6f1</color>
+    <color name="arrow">#e1793d</color>
+    <color name="undo">#e1c5f3</color>
+    <color name="menuback">#fae2e2</color>
+    <color name="menucardback">#867575</color>
+    <color name="circular">#fceded</color>
+    <color name="line">#61116f</color>
+    <color name="border">#be680f</color>
+    <color name="orangenew">#de793a</color>
+    <color name="edit">#f5d7d7</color>
+    <color name="radio">#f56e83</color>
+    <color name="dot1">#2ff81a</color>
+    <color name="dot2">#f71a1f</color>
+    <color name="dot3">#f8e519</color>
+
+
+
+
+
+</resources>

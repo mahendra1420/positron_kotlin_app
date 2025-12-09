@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/back"
+    android:orientation="vertical"
+    tools:context=".activity.AddNewRecordActivity">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:background="@drawable/appbar">
+
+        <ImageView
+            android:id="@+id/btnBack"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/undo" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:fontFamily="@font/arialmt"
+            android:padding="5dp"
+            android:text="ADD NEW RECORD"
+            android:textColor="@color/appbartext"
+            android:textSize="23sp"
+            android:textStyle="normal" />
+
+
+        <ImageButton
+            android:id="@+id/iv_delete"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:visibility="gone"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="40dp"
+            android:background="@drawable/i1" />
+
+        <ImageButton
+            android:id="@+id/iv_logout"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="11dp"
+            android:background="@drawable/i2" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            android:weightSum="3"
+            android:orientation="horizontal">
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="0dp"
+                    android:text="CLASS"
+                    android:fontFamily="@font/arialmt"
+                    android:textColor="@color/menucolor"
+                    android:textSize="17sp"/>
+
+                <EditText
+                    android:id="@+id/editTextClass"
+                    style="@style/edittext_login_register"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/newbackground_edit"
+                    android:textColor="@color/menucolor"
+                    android:textColorHint="@color/menucolor"
+                    android:editable="false"
+                    android:hint="Select"
+                    android:focusable="false"
+                    android:enabled="true"
+                    android:inputType="text"
+                    tools:ignore="Autofill" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="5dp"
+                    android:text="SECTION"
+                    android:fontFamily="@font/arialmt"
+                    android:textColor="@color/menucolor"
+                    android:textSize="17sp"/>
+
+                <EditText
+                    android:id="@+id/editTextSection"
+                    style="@style/edittext_login_register"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/newbackground_edit"
+                    android:textColor="@color/menucolor"
+                    android:textColorHint="@color/menucolor"
+                    android:editable="false"
+                    android:hint="Select"
+                    android:focusable="false"
+                    android:enabled="true"
+                    android:inputType="text"
+                    tools:ignore="Autofill" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="5dp"
+                    android:text="SUBJECT"
+                    android:fontFamily="@font/arialmt"
+                    android:textColor="@color/menucolor"
+                    android:textSize="17sp"/>
+
+                <EditText
+                    android:id="@+id/editTextSubject"
+                    style="@style/edittext_login_register"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginEnd="10dp"
+                    android:textColor="@color/menucolor"
+                    android:textColorHint="@color/menucolor"
+                    android:background="@drawable/newbackground_edit"
+                    android:editable="false"
+                    android:hint="Select"
+                    android:focusable="false"
+                    android:enabled="true"
+                    android:inputType="text"
+                    tools:ignore="Autofill" />
+
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="5dp"
+                android:text="TITLE"
+                android:fontFamily="@font/arialmt"
+                android:textColor="@color/menucolor"
+                android:textSize="17sp"/>
+
+            <EditText
+                android:id="@+id/editTextTITLE"
+                style="@style/edittext_login_register"
+                android:layout_marginEnd="20dp"
+                android:textColor="@color/menucolor"
+                android:textColorHint="@color/menucolor"
+                android:background="@color/edit"
+                android:enabled="true"
+                android:inputType="text"
+                tools:ignore="Autofill" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="5dp"
+                android:text="DESCRIPTION"
+                android:fontFamily="@font/arialmt"
+                android:textColor="@color/menucolor"
+                android:textSize="17sp"/>
+
+            <EditText
+                android:id="@+id/editTextDescription"
+                style="@style/edittext_login_register"
+                android:layout_marginEnd="20dp"
+                android:textColor="@color/menucolor"
+                android:textColorHint="@color/menucolor"
+                android:background="@color/edit"
+
+                android:enabled="true"
+                android:inputType="text"
+                tools:ignore="Autofill" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="2"
+            android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1.5"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="5dp"
+                android:text="DOCUMENT"
+                android:fontFamily="@font/arialmt"
+                android:textColor="@color/menucolor"
+                android:textSize="17sp"/>
+
+            <TextView
+                android:id="@+id/editTextDocument"
+                style="@style/edittext_login_register"
+                android:layout_width="match_parent"
+                android:textColor="@color/menucolor"
+                android:textColorHint="@color/menucolor"
+                android:background="@color/edit"
+                android:hint="NO FILE CHOSEN"
+                android:enabled="false"
+                android:inputType="text"
+                tools:ignore="Autofill" />
+
+
+        </LinearLayout>
+
+
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_Remove"
+                android:textColor="@color/menucolor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="0.5"
+                android:layout_marginTop="20dp"
+                android:textColorHint="@color/menucolor"
+                android:backgroundTint="@color/edit"
+                android:text="Remove FILE" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="2"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_choosefile"
+                android:textColor="@color/menucolor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="0.5"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:textColorHint="@color/menucolor"
+                android:visibility="gone"
+                android:backgroundTint="@color/edit"
+                android:text="CHOOSE PDF  FILE" />
+
+
+
+            <ImageView
+                android:id="@+id/iv_image"
+                android:layout_width="180dp"
+                android:layout_height="80dp"
+                android:padding="3dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="20dp"
+                android:src="@drawable/ic_gallary"
+                android:scaleType="fitCenter"
+                />
+        </LinearLayout>
+
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_save"
+            android:textColor="@color/menucolor"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:textColorHint="@color/menucolor"
+            android:backgroundTint="@color/edit"
+            android:text="SAVE" />
+
+
+
+    </LinearLayout>
+
+</LinearLayout>

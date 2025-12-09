@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "125357495192",
+    "project_id": "erptron-2d799",
+    "storage_bucket": "erptron-2d799.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:125357495192:android:681ac6e40a8e4d350c11ed",
+        "android_client_info": {
+          "package_name": "com.positron.teachers"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAioRI7CjOcUk3HCkR0iUCXFCMRHGUsZHg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:125357495192:android:4623ad7dc17372770c11ed",
+        "android_client_info": {
+          "package_name": "com.erptron.teacherapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAioRI7CjOcUk3HCkR0iUCXFCMRHGUsZHg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

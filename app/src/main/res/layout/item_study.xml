@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            app:cardCornerRadius="5dp"
+            app:cardUseCompatPadding="true">
+
+            <RelativeLayout
+                android:id="@+id/data_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="85dp"
+                android:padding="5dp">
+
+                <com.module.utils.custom_views.TextViewRobotoRegularBold
+                    android:id="@+id/tvTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="Title"
+                    android:maxLines="2"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/ivDownload"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:src="@drawable/ic_download"
+                    android:layout_alignParentEnd="true"
+                    android:visibility="gone"
+                    android:layout_marginEnd="5dp"/>
+
+                <com.module.utils.custom_views.TextViewRobotoRegularBold
+                    android:id="@+id/tvName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvTitle"
+                    android:layout_marginTop="1dp"
+                    android:text="Name"
+                    android:maxLines="2"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+
+                <com.module.utils.custom_views.TextViewRobotoRegular
+                    android:id="@+id/tvDescription"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvName"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="2dp"
+                    android:paddingStart="5dp"
+                    android:visibility="gone"
+                    android:textColor="@color/black"
+                    android:textSize="15sp"
+                    android:maxLines="1"
+                    tools:text="1iz2A_3hnb4Bx31hPhG9NipCDU7YT3crS" />
+
+
+
+                <com.module.utils.custom_views.TextViewRobotoRegularBold
+                    android:id="@+id/tvDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvDescription"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="1dp"
+                    android:text="Date : "
+                    android:maxLines="1"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnDelete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginStart="1dp"
+                    android:layout_below="@+id/tvDate"
+                    android:background="@color/edit"
+                    android:text="Delete"
+                    android:textColor="@color/menucolor"
+                    android:textSize="14sp" />
+
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/image_view"
+                android:layout_width="80dp"
+                android:layout_height="100dp"
+                android:src="@drawable/doc_icon"
+                android:layout_marginStart="3dp"
+                android:elevation="5dp"
+                android:layout_marginTop="10dp"
+                android:visibility="visible"/>
+
+            <TextView
+                android:id="@+id/tv_document_link"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textAlignment="center"
+                android:gravity="center"
+                android:text="abcba"
+                android:visibility="gone"/>
+
+    </RelativeLayout>
+
+</LinearLayout>

@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/backgroundback"
+    tools:context=".activity.REgistersteptwoActivity">
+
+    <androidx.cardview.widget.CardView
+        style="@style/manageUserCardMain"
+        android:backgroundTint="#E2E2E1"
+        android:layout_marginTop="30dp"
+        app:cardCornerRadius="20dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+
+                <EditText
+                    android:id="@+id/editTextAdmissionNumber"
+                    style="@style/edittext_login_register"
+                    android:layout_weight="1"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginEnd="10dp"
+                    android:drawableStart="@drawable/i6"
+                    android:hint="Admission Number"
+                    android:enabled="false"
+                    android:inputType="number"
+                    tools:ignore="Autofill" />
+
+                <Button
+                    android:id="@+id/btnSumbit"
+                    android:layout_width="160dp"
+                    android:layout_height="45dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:visibility="gone"
+                    android:text="submit"
+                    android:textSize="11sp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/other_details_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="5dp"
+                    android:text="Student Name"
+                    android:textColor="@color/black"
+                    android:textSize="17sp"/>
+
+                <TextView
+                    android:id="@+id/editTextStudentName"
+                    style="@style/edittext_login_register"
+                    android:layout_marginTop="5dp"
+                    android:drawableStart="@drawable/i7" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="5dp"
+                    android:text="Guardians Name"
+                    android:textColor="@color/black"
+                    android:textSize="17sp"/>
+
+                <TextView
+                    android:id="@+id/editTextGuardiansName"
+                    style="@style/edittext_login_register"
+                    android:layout_marginTop="5dp"
+                    android:drawableStart="@drawable/i8" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="5dp"
+                    android:text="Class"
+                    android:textColor="@color/black"
+                    android:textSize="17sp"/>
+
+                <TextView
+                    android:id="@+id/editTextClass"
+                    style="@style/edittext_login_register"
+                    android:layout_marginTop="5dp"
+                    android:drawableStart="@drawable/i9" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="5dp"
+                    android:text="Section"
+                    android:textColor="@color/black"
+                    android:textSize="17sp"/>
+
+                <TextView
+                    android:id="@+id/editTextSection"
+                    style="@style/edittext_login_register"
+                    android:layout_marginTop="5dp"
+                    android:drawableStart="@drawable/i10" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="5dp"
+                    android:text="Roll No."
+                    android:textColor="@color/black"
+                    android:textSize="17sp"/>
+
+                <TextView
+                    android:id="@+id/editTextRollNo"
+                    style="@style/edittext_login_register"
+                    android:layout_marginTop="5dp"
+                    android:drawableStart="@drawable/i9"
+                    android:inputType="text" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="5dp"
+                    android:text="Mobile No."
+                    android:textColor="@color/black"
+                    android:textSize="17sp"/>
+
+                <TextView
+                    android:id="@+id/editTextMobileNo"
+                    style="@style/edittext_login_register"
+                    android:layout_marginTop="5dp"
+                    android:drawableStart="@drawable/i12"
+                    android:inputType="number"
+                    android:maxLength="10" />
+
+                <Button
+                    android:id="@+id/btnRegister"
+                    style="@style/button_login_register"
+                    android:layout_width="180dp"
+                    android:layout_gravity="center"
+                    android:text="Register"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+
+
+
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>

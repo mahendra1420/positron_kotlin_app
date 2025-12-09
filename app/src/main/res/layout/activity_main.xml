@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/back"
+    android:orientation="vertical"
+    tools:context=".SpalshScreen">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/image_view"
+                android:layout_width="180dp"
+                android:layout_height="180dp"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:src="@drawable/logonew"
+                android:visibility="visible" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/segoeuiitalic"
+                android:text="Welcome"
+                android:textColor="@color/menucolor"
+                android:textSize="17sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/segoeuiitalic"
+                android:text="To"
+                android:textColor="@color/menucolor"
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/tvSchoolName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/segoeuibold"
+                android:text="TEST SCHOOL"
+                android:textAlignment="center"
+                android:textColor="@color/menucolor"
+                android:textSize="30sp" />
+
+            <TextView
+                android:id="@+id/tvAddressLine1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="20dp"
+                android:fontFamily="@font/segoeui"
+                android:text="Test address"
+                android:textColor="@color/menucolor"
+                android:textSize="17sp" />
+
+            <!--    <TextView
+                    android:id="@+id/tvAddressLine2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="0dp"
+                    android:layout_gravity="center"
+                    android:text="TEST - 000000"
+                    android:fontFamily="@font/segoeui"
+                    android:textColor="@color/menucolor"
+                    android:textSize="17sp"/>-->
+
+            <EditText
+                android:id="@+id/editTextEmail"
+                style="@style/edittext_login_register"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="70dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/newbackground_edit"
+                android:enabled="true"
+                android:hint="Your Mail ID Here               "
+                android:inputType="textEmailAddress"
+                android:text=""
+                android:textColor="@color/menucolor"
+
+                android:textColorHint="@color/menucolor"
+                tools:ignore="Autofill" />
+
+            <EditText
+                android:id="@+id/editTextPassword"
+                style="@style/edittext_login_register"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/newbackground_edit"
+                android:enabled="true"
+                android:hint="Password For Initial Login"
+                android:inputType="text"
+                android:text=""
+                android:textColor="@color/menucolor"
+                android:textColorHint="@color/menucolor"
+                tools:ignore="Autofill" />
+
+            <TextView
+                android:id="@+id/resetPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="55dp"
+                android:layout_marginTop="15dp"
+                android:gravity="center"
+                android:text="Reset Password."
+                android:textColor="@color/menucolor"
+                android:textSize="17sp" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnSubmit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="0dp"
+                android:background="@color/edit"
+                android:text="SUBMIT"
+                android:textColor="@color/menucolor"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/back"
+    tools:context=".activity.TeacherRemarksActivity"
+    android:fitsSystemWindows="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:background="@drawable/appbar">
+
+        <ImageView
+            android:id="@+id/btnBack"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/undo" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:fontFamily="@font/arialmt"
+            android:padding="5dp"
+            android:text="TEACHER REMARKS"
+            android:textColor="@color/appbartext"
+            android:textSize="23sp"
+            android:textStyle="normal" />
+
+
+        <ImageButton
+            android:id="@+id/iv_delete"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="15dp"
+            android:visibility="gone"
+            android:layout_marginEnd="40dp"
+            android:background="@drawable/i1" />
+
+        <ImageButton
+            android:id="@+id/iv_logout"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="11dp"
+            android:background="@drawable/i2" />
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            android:weightSum="4"
+            android:orientation="horizontal">
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="0dp"
+                    android:text="CLASS"
+                    android:fontFamily="@font/arialmt"
+                    android:textColor="@color/menucolor"
+                    android:textSize="17sp"/>
+
+                <EditText
+                    android:id="@+id/editTextClass"
+                    style="@style/edittext_login_register"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/newbackground_edit"
+                    android:textColor="@color/menucolor"
+                    android:textColorHint="@color/menucolor"
+
+                    android:editable="false"
+                    android:hint="Select"
+                    android:focusable="false"
+                    android:enabled="true"
+
+                    android:inputType="text"
+                    tools:ignore="Autofill" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="5dp"
+                    android:text="SECTION"
+                    android:fontFamily="@font/arialmt"
+                    android:textColor="@color/menucolor"
+                    android:textSize="17sp"/>
+
+                <EditText
+                    android:id="@+id/editTextSection"
+                    style="@style/edittext_login_register"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/newbackground_edit"
+                    android:textColor="@color/menucolor"
+                    android:textColorHint="@color/menucolor"
+                    android:editable="false"
+                    android:hint="Select"
+                    android:focusable="false"
+                    android:enabled="true"
+
+                    android:inputType="text"
+                    tools:ignore="Autofill" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="5dp"
+                    android:text="FORMAT NAME"
+                    android:fontFamily="@font/arialmt"
+                    android:textColor="@color/menucolor"
+                    android:textSize="17sp"/>
+
+                <EditText
+                    android:id="@+id/editTextExamName"
+                    style="@style/edittext_login_register"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginEnd="10dp"
+                    android:textColor="@color/menucolor"
+                    android:textColorHint="@color/menucolor"
+                    android:background="@drawable/newbackground_edit"
+                    android:editable="false"
+                    android:hint="Select"
+                    android:focusable="false"
+                    android:enabled="true"
+                    android:inputType="text"
+                    tools:ignore="Autofill" />
+
+
+            </LinearLayout>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnSearch"
+                android:layout_width="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+               android:background="@color/edit"
+                android:textColor="@color/menucolor"
+                android:text="SEARCH"
+                android:textSize="16sp"/>
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:weightSum="2"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="0dp"
+            android:text="TEACHER REMARKS"
+            android:layout_weight="1.5"
+            android:fontFamily="@font/arialmt"
+            android:textColor="@color/menucolor"
+            android:textSize="17sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="60dp"
+            android:text="REMARKS"
+            android:layout_weight="0.5"
+            android:fontFamily="@font/arialmt"
+            android:textColor="@color/menucolor"
+            android:textSize="17sp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:weightSum="2"
+        android:visibility="gone"
+        android:orientation="horizontal">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_image"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentStart="true"
+            android:layout_gravity="center"
+            android:src="@drawable/girl"
+           />
+
+        <ImageView
+            android:id="@+id/iv_calendar"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="fitXY"
+            android:visibility="gone"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/girl" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="5dp"
+            android:text="01. AISHIKA TRIPATHI"
+            android:layout_weight="1"
+            android:fontFamily="@font/arialmt"
+            android:textColor="@color/menucolor"
+            android:textSize="17sp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:weightSum="2"
+        android:visibility="gone"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/editTextName"
+            style="@style/edittext_login_register"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="0.5"
+            android:background="@drawable/newbackground_edit"
+            android:textColor="@color/menucolor"
+            android:textColorHint="@color/menucolor"
+            android:hint=""
+            android:enabled="true"
+            android:inputType="text"
+            tools:ignore="Autofill" />
+
+        <EditText
+            android:id="@+id/editTextAtt"
+            style="@style/edittext_login_register"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/newbackground_edit"
+            android:textColor="@color/menucolor"
+            android:textColorHint="@color/menucolor"
+            android:hint=""
+            android:layout_weight="1.5"
+            android:enabled="true"
+            android:inputType="number"
+            tools:ignore="Autofill" />
+    </LinearLayout>
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/NestedScrollView"
+        android:layout_width="match_parent"
+        android:layout_marginBottom="60dp"
+        android:visibility="visible"
+        android:layout_height="wrap_content">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_teacherRemarks"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="0dp"
+        android:layout_marginBottom="0dp"
+        android:visibility="visible"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/item_teacherremarks"/>
+
+    </androidx.core.widget.NestedScrollView>
+
+
+    <RelativeLayout
+        android:id="@+id/no_data_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textSize="30dp"
+            android:textColor="@color/menucolor"
+            android:text="No Data Found" />
+
+    </RelativeLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnSave"
+        android:layout_width="wrap_content"
+        android:layout_marginEnd="0dp"
+        android:layout_marginTop="-50dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@color/edit"
+        android:visibility="gone"
+        android:textColor="@color/menucolor"
+        android:text="SAVE"
+        android:textSize="16sp"/>
+
+</LinearLayout>

@@ -1,0 +1,848 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/back"
+    android:orientation="vertical"
+    tools:context=".activity.HomeActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/appbar">
+
+        <ImageView
+            android:id="@+id/btnBack"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/undo"
+            android:contentDescription="@string/app_name" />
+
+
+        <ImageButton
+            android:id="@+id/iv_delete"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="40dp"
+            android:background="@drawable/baseline_password"
+            android:contentDescription="@string/app_name"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <ImageButton
+            android:id="@+id/iv_logout"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="11dp"
+            android:background="@drawable/i2"
+            android:contentDescription="@string/app_name"
+            tools:ignore="TouchTargetSizeCheck" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/back"
+        android:visibility="visible">
+
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10sp"
+                    android:orientation="horizontal">
+
+                    <FrameLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="130dp"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="5dp">
+
+                        <ImageView
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:layout_gravity="center"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/ring"
+                            android:contentDescription="@string/app_name"
+                            android:visibility="visible" />
+
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/profile_image"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:layout_gravity="center"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/dummy" />
+                    </FrameLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tvName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/segoeuibold"
+                            android:layout_marginTop="12dp"
+                            android:text="ROSLINA SINGH"
+                            android:textColor="#621270"
+                            android:textSize="25sp" />
+
+                        <TextView
+                            android:id="@+id/tvID"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:fontFamily="@font/segoeui"
+                            android:text="1234/12"
+                            android:textColor="#621270"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:id="@+id/tvContactNo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/segoeui"
+                            android:text="+91 0123456789"
+                            android:textColor="#621270"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:id="@+id/tvEmail"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/segoeui"
+                            android:text="abcdef@gmail.com"
+                            android:maxLines="2"
+                            android:textColor="#621270"
+                            android:textSize="18sp" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/ll"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:orientation="vertical">
+
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_weight="1"
+                        app:cardBackgroundColor="@color/menuback"
+                        app:cardCornerRadius="10dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:weightSum="2">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="horizontal"
+                                android:weightSum="4">
+
+                                <RelativeLayout
+                                    android:id="@+id/rlAttendance"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1">
+
+                                    <ImageView
+                                        android:id="@+id/attendance"
+                                        android:layout_width="60dp"
+                                        android:layout_height="60dp"
+                                        android:layout_centerHorizontal="true"
+                                        android:layout_marginTop="10dp"
+                                        android:layout_marginBottom="5dp"
+                                        android:contentDescription="@string/app_name"
+                                        android:src="@drawable/attendance" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_below="@+id/attendance"
+                                        android:layout_centerHorizontal="true"
+                                        android:layout_marginBottom="10dp"
+                                        android:fontFamily="@font/arialmt"
+                                        android:text="ATTEN\nDANCE"
+                                        android:textColor="@color/menucolor"
+                                        android:textSize="12sp" />
+
+
+                                </RelativeLayout>
+
+                                <View
+                                    android:layout_width="1dp"
+                                    android:layout_height="80dp"
+                                    android:layout_marginTop="30dp"
+                                    android:background="@color/line" />
+
+                                <RelativeLayout
+                                    android:id="@+id/rlMarksEntry"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1">
+
+                                    <ImageView
+                                        android:id="@+id/marksentry"
+                                        android:layout_width="60dp"
+                                        android:layout_height="60dp"
+                                        android:layout_centerHorizontal="true"
+                                        android:layout_marginTop="10dp"
+                                        android:layout_marginBottom="5dp"
+                                        android:contentDescription="@string/app_name"
+                                        android:src="@drawable/marksentry" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_below="@+id/marksentry"
+                                        android:layout_centerHorizontal="true"
+                                        android:layout_marginBottom="10dp"
+                                        android:fontFamily="@font/arialmt"
+                                        android:text="MARKS\nENTRY"
+                                        android:textColor="@color/menucolor"
+                                        android:textSize="12sp" />
+
+                                </RelativeLayout>
+
+                                <View
+                                    android:layout_width="1dp"
+                                    android:layout_height="80dp"
+                                    android:layout_marginTop="30dp"
+                                    android:background="@color/line" />
+
+                                <RelativeLayout
+                                    android:id="@+id/rlVideoClasses"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1">
+
+                                    <ImageView
+                                        android:id="@+id/video"
+                                        android:layout_width="60dp"
+                                        android:layout_height="60dp"
+                                        android:layout_centerHorizontal="true"
+                                        android:layout_marginTop="10dp"
+                                        android:padding="10dp"
+                                        android:layout_marginBottom="5dp"
+                                        android:contentDescription="@string/app_name"
+                                        android:src="@drawable/takephoto" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_below="@+id/video"
+                                        android:layout_centerHorizontal="true"
+                                        android:layout_marginBottom="10dp"
+                                        android:fontFamily="@font/arialmt"
+                                        android:text="Take\nPhoto"
+                                        android:textAlignment="center"
+                                        android:textColor="@color/menucolor"
+                                        android:textSize="12sp" />
+
+                                </RelativeLayout>
+
+
+
+                                <View
+                                    android:layout_width="1dp"
+                                    android:layout_height="80dp"
+                                    android:layout_marginTop="30dp"
+                                    android:background="@color/line" />
+
+                                <RelativeLayout
+                                    android:id="@+id/rlExamRoutine"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:visibility="gone"
+                                    android:layout_weight="1">
+
+                                    <ImageView
+                                        android:id="@+id/exam"
+                                        android:layout_width="60dp"
+                                        android:layout_height="60dp"
+                                        android:layout_centerHorizontal="true"
+                                        android:layout_marginTop="10dp"
+                                        android:layout_marginBottom="5dp"
+                                        android:contentDescription="@string/app_name"
+                                        android:src="@drawable/examroutine" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_below="@+id/exam"
+                                        android:layout_centerHorizontal="true"
+                                        android:layout_marginBottom="10dp"
+                                        android:fontFamily="@font/arialmt"
+                                        android:text="EXAM\nROUTINE"
+                                        android:textAlignment="center"
+                                        android:textColor="@color/menucolor"
+                                        android:textSize="12sp" />
+
+                                </RelativeLayout>
+
+                                <RelativeLayout
+                                    android:id="@+id/rlTeacherRemarks"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:visibility="visible"
+                                    android:layout_weight="1">
+
+                                    <ImageView
+                                        android:id="@+id/teacher"
+                                        android:layout_width="60dp"
+                                        android:layout_height="60dp"
+                                        android:layout_centerHorizontal="true"
+                                        android:layout_marginTop="10dp"
+                                        android:layout_marginBottom="5dp"
+
+                                        android:contentDescription="@string/app_name"
+                                        android:src="@drawable/teacherremarks" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_below="@+id/teacher"
+                                        android:layout_centerHorizontal="true"
+                                        android:layout_marginBottom="10dp"
+                                        android:fontFamily="@font/arialmt"
+                                        android:text="TEACHER\nREMARKS"
+                                        android:textColor="@color/menucolor"
+                                        android:textSize="12sp" />
+
+                                </RelativeLayout>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:weightSum="4">
+
+                                <RelativeLayout
+                                    android:id="@+id/rlClassRoutine"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:visibility="visible"
+                                    android:layout_weight="1">
+
+                                    <View
+                                        android:layout_width="60dp"
+                                        android:layout_height="1dp"
+                                        android:layout_marginStart="10dp"
+                                        android:layout_marginBottom="30dp"
+                                        android:background="@color/line" />
+
+                                    <ImageView
+                                        android:id="@+id/classrountine"
+                                        android:layout_width="60dp"
+                                        android:layout_height="60dp"
+                                        android:layout_centerHorizontal="true"
+                                        android:layout_marginTop="10dp"
+                                        android:layout_marginBottom="5dp"
+                                        android:contentDescription="@string/app_name"
+                                        android:src="@drawable/classrountine" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_below="@+id/classrountine"
+                                        android:layout_centerHorizontal="true"
+                                        android:layout_marginBottom="10dp"
+                                        android:fontFamily="@font/arialmt"
+                                        android:text="Time\nTable"
+                                        android:textAlignment="center"
+                                        android:textColor="@color/menucolor"
+                                        android:textSize="14sp" />
+
+
+                                </RelativeLayout>
+
+                                <RelativeLayout
+                                    android:id="@+id/rlAttendanceHistory"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1">
+                                    <View
+                                        android:layout_width="1dp"
+                                        android:layout_height="80dp"
+                                        android:layout_marginTop="20dp"
+                                        android:background="@color/line" />
+
+                                    <View
+                                        android:layout_width="60dp"
+                                        android:layout_height="1dp"
+                                        android:layout_marginStart="10dp"
+                                        android:layout_marginBottom="30dp"
+                                        android:background="@color/line" />
+
+                                    <ImageView
+                                        android:id="@+id/attendancehistroy"
+                                        android:layout_width="60dp"
+                                        android:layout_height="60dp"
+                                        android:layout_centerHorizontal="true"
+                                        android:layout_marginTop="10dp"
+                                        android:padding="10dp"
+                                        android:layout_marginBottom="5dp"
+                                        android:contentDescription="@string/app_name"
+                                        android:src="@drawable/attenh" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_below="@+id/attendancehistroy"
+                                        android:layout_centerHorizontal="true"
+                                        android:layout_marginBottom="10dp"
+                                        android:fontFamily="@font/arialmt"
+                                        android:text="ATTEND.\nHISTORY"
+                                        android:textAlignment="center"
+                                        android:textColor="@color/menucolor"
+                                        android:textSize="12sp" />
+
+
+                                </RelativeLayout>
+
+                                <View
+                                    android:layout_width="1dp"
+                                    android:layout_height="80dp"
+                                    android:layout_marginTop="20dp"
+                                    android:background="@color/line" />
+
+                                <RelativeLayout
+                                    android:id="@+id/rlNotice"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1">
+
+                                    <View
+                                        android:layout_width="60dp"
+                                        android:layout_height="1dp"
+                                        android:layout_marginStart="10dp"
+                                        android:layout_marginBottom="30dp"
+                                        android:background="@color/line" />
+
+                                    <ImageView
+                                        android:id="@+id/notice_iconn"
+                                        android:layout_width="60dp"
+                                        android:layout_height="60dp"
+                                        android:layout_centerHorizontal="true"
+                                        android:layout_marginTop="10dp"
+                                        android:layout_marginBottom="5dp"
+                                        android:contentDescription="@string/app_name"
+                                        android:src="@drawable/notice" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_below="@+id/notice_iconn"
+                                        android:layout_centerHorizontal="true"
+                                        android:layout_marginBottom="10dp"
+                                        android:fontFamily="@font/arialmt"
+                                        android:text="NOTICE"
+                                        android:textColor="@color/menucolor"
+                                        android:textSize="12sp" />
+
+                                </RelativeLayout>
+
+                                <View
+                                    android:layout_width="1dp"
+                                    android:layout_height="80dp"
+                                    android:layout_marginTop="20dp"
+                                    android:background="@color/line" />
+
+                                <RelativeLayout
+                                    android:id="@+id/rlCircular"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:visibility="gone"
+                                    android:layout_weight="1">
+                                    <View
+                                        android:layout_width="60dp"
+                                        android:layout_height="1dp"
+                                        android:layout_marginStart="10dp"
+                                        android:layout_marginBottom="30dp"
+                                        android:background="@color/line" />
+
+                                    <ImageView
+                                        android:id="@+id/circular"
+                                        android:layout_width="60dp"
+                                        android:layout_height="60dp"
+                                        android:layout_centerHorizontal="true"
+                                        android:layout_marginTop="10dp"
+                                        android:padding="10dp"
+                                        android:layout_marginBottom="5dp"
+                                        android:contentDescription="@string/app_name"
+                                        android:src="@drawable/takephoto" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_below="@+id/circular"
+                                        android:layout_centerHorizontal="true"
+                                        android:layout_marginBottom="10dp"
+                                        android:fontFamily="@font/arialmt"
+                                        android:text="TAKE PHOTO"
+                                        android:textColor="@color/menucolor"
+                                        android:textSize="12sp" />
+
+                                </RelativeLayout>
+
+
+
+
+
+                                <RelativeLayout
+                                    android:id="@+id/rlStudyMatireal"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1">
+                                    <View
+                                        android:layout_width="60dp"
+                                        android:layout_height="1dp"
+                                        android:layout_marginStart="10dp"
+                                        android:layout_marginBottom="30dp"
+                                        android:background="@color/line" />
+
+                                    <ImageView
+                                        android:id="@+id/studymatireal"
+                                        android:layout_width="60dp"
+                                        android:layout_height="60dp"
+                                        android:layout_centerHorizontal="true"
+                                        android:layout_marginTop="10dp"
+                                        android:layout_marginBottom="5dp"
+                                        android:contentDescription="@string/app_name"
+                                        android:src="@drawable/studymatireal" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_below="@+id/studymatireal"
+                                        android:layout_centerHorizontal="true"
+                                        android:layout_marginBottom="10dp"
+                                        android:fontFamily="@font/arialmt"
+                                        android:text="STUDY\nMATERIALS"
+                                        android:textAlignment="center"
+                                        android:textColor="@color/menucolor"
+                                        android:textSize="12sp" />
+
+                                </RelativeLayout>
+
+
+                                <View
+                                    android:layout_width="1dp"
+                                    android:layout_height="80dp"
+                                    android:layout_marginTop="20dp"
+                                    android:background="@color/line"
+                                    android:visibility="gone"/>
+                                <RelativeLayout
+                                    android:id="@+id/rlLiveClass"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:visibility="gone"
+                                    android:layout_weight="1">
+                                    <View
+                                        android:layout_width="60dp"
+                                        android:layout_height="1dp"
+                                        android:layout_marginStart="10dp"
+                                        android:layout_marginBottom="30dp"
+                                        android:background="@color/line" />
+
+                                    <ImageView
+                                        android:id="@+id/live"
+                                        android:layout_width="60dp"
+                                        android:layout_height="60dp"
+                                        android:layout_centerHorizontal="true"
+                                        android:layout_marginTop="10dp"
+                                        android:padding="10dp"
+                                        android:visibility="invisible"
+                                        android:layout_marginBottom="5dp"
+                                        android:contentDescription="@string/app_name"
+                                        android:src="@drawable/liveclass" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_below="@+id/live"
+                                        android:layout_centerHorizontal="true"
+                                        android:layout_marginBottom="10dp"
+                                        android:visibility="invisible"
+                                        android:fontFamily="@font/arialmt"
+                                        android:textAlignment="center"
+                                        android:text="HOME\nWORK"
+                                        android:textColor="@color/menucolor"
+                                        android:textSize="12sp" />
+
+                                </RelativeLayout>
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+
+                </LinearLayout>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/school"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginBottom="30dp"
+                    android:background="@drawable/background_edit"
+                    app:cardBackgroundColor="@color/circular"
+                    app:cardCornerRadius="10dp">
+
+                    <TextView
+                        android:id="@+id/tvCircular"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="50dp"
+                        android:layout_marginEnd="30dp"
+                        android:layout_marginStart="60dp"
+                        android:layout_marginBottom="50dp"
+                        android:fontFamily="@font/arialmt"
+                        android:text="The School Circulars Will be Displayed here"
+                        android:textColor="@color/menucolor"
+                        android:textSize="15sp" />
+
+
+                </androidx.cardview.widget.CardView>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginBottom="30dp"
+                    android:visibility="gone"
+                    android:weightSum="4">
+
+<!--                    <androidx.cardview.widget.CardView
+                        android:id="@+id/card_view_noticee"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="5dp"
+                        app:cardCornerRadius="10dp">-->
+
+                        <RelativeLayout
+                            android:id="@+id/rvTakePhoto"
+                            android:layout_width="0dp"
+                            android:background="@drawable/background_edit"
+                            android:layout_weight="1"
+                            android:elevation="5dp"
+                            android:layout_marginStart="5dp"
+                            android:layout_height="wrap_content">
+
+                            <ImageView
+                                android:id="@+id/practiceworksheet"
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="5dp"
+                                android:padding="10dp"
+                                android:layout_marginBottom="1dp"
+                                android:contentDescription="@string/app_name"
+                                android:src="@drawable/takephoto" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/practiceworksheet"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginBottom="10dp"
+                                android:fontFamily="@font/arialmt"
+                                android:text="Take\nPhoto"
+                                android:textAlignment="center"
+                                android:textColor="@color/menucolor"
+                                android:textSize="12sp" />
+
+                        </RelativeLayout>
+<!--
+                    </androidx.cardview.widget.CardView>-->
+
+<!--                    <androidx.cardview.widget.CardView
+                        android:id="@+id/card_view_wlp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="5dp"
+                        android:layout_weight="1"
+                        app:cardCornerRadius="10dp">-->
+
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:elevation="5dp"
+                            android:layout_marginStart="5dp"
+                            android:background="@drawable/background_edit"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:id="@+id/weeklylessonplan"
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginBottom="1dp"
+                                android:contentDescription="@string/app_name"
+                                android:src="@drawable/weeklylessonplan" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/weeklylessonplan"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginBottom="10dp"
+                                android:fontFamily="@font/arialmt"
+                                android:text="Weekly\nLesson Plan"
+                                android:textAlignment="center"
+                                android:textColor="@color/menucolor"
+                                android:textSize="12sp" />
+
+                        </RelativeLayout>
+
+<!--                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/card_view_clb"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="5dp"
+
+
+                        app:cardCornerRadius="10dp">-->
+
+                        <RelativeLayout
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:elevation="5dp"
+                            android:background="@drawable/background_edit"
+                            android:layout_marginStart="5dp"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:id="@+id/classs"
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginBottom="1dp"
+                                android:contentDescription="@string/app_name"
+                                android:src="@drawable/classs" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/classs"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginBottom="10dp"
+                                android:fontFamily="@font/arialmt"
+                                android:text="Class\nLog Book"
+                                android:textAlignment="center"
+                                android:textColor="@color/menucolor"
+                                android:textSize="12sp" />
+
+                        </RelativeLayout>
+
+<!--                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/card_view_psd"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+
+
+                        app:cardCornerRadius="10dp">-->
+
+                        <RelativeLayout
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_marginStart="5dp"
+                            android:elevation="5dp"
+                            android:background="@drawable/background_edit"
+                            android:layout_height="wrap_content">
+
+                            <ImageView
+                                android:id="@+id/updatestudentdata"
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginBottom="1dp"
+                                android:contentDescription="@string/app_name"
+                                android:src="@drawable/updatestudentdata" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/updatestudentdata"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginBottom="10dp"
+                                android:fontFamily="@font/arialmt"
+                                android:layout_marginStart="2dp"
+                                android:layout_marginLeft="2dp"
+                                android:layout_marginRight="2dp"
+                                android:text="Update\nStudents Data"
+                                android:textAlignment="center"
+                                android:textColor="@color/menucolor"
+                                android:textSize="12sp" />
+
+                        </RelativeLayout>
+
+<!--                    </androidx.cardview.widget.CardView>-->
+
+                </LinearLayout>
+            </LinearLayout>
+
+
+        </ScrollView>
+    </RelativeLayout>
+</LinearLayout>

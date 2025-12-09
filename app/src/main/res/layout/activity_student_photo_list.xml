@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/back"
+    tools:context=".activity.StudentPhotoListActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/appbar">
+
+        <ImageView
+            android:id="@+id/btnBack"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/undo" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:fontFamily="@font/arialmt"
+            android:padding="5dp"
+            android:text="Take Photo"
+            android:textColor="@color/appbartext"
+            android:textSize="23sp"
+            android:textStyle="normal" />
+
+
+        <ImageButton
+            android:id="@+id/iv_delete"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="40dp"
+            android:background="@drawable/i1"
+            android:visibility="gone"
+            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+        <ImageButton
+            android:id="@+id/iv_logout"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="11dp"
+            android:background="@drawable/i2"
+            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="10dp"
+                android:weightSum="3"
+                android:orientation="horizontal">
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginStart="0dp"
+                        android:text="CLASS"
+                        android:fontFamily="@font/arialmt"
+                        android:textColor="@color/orangenew"
+                        android:textSize="17sp"/>
+
+                    <EditText
+                        android:id="@+id/editTextClass"
+                        style="@style/edittext_login_register"
+                        android:layout_marginTop="0dp"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/newbackground_edit"
+                        android:editable="false"
+                        android:enabled="true"
+                        android:focusable="false"
+                        android:hint="Select"
+                        android:inputType="text"
+                        android:textColor="@color/orangenew"
+                        android:textColorHint="@color/orangenew"
+                        tools:ignore="Autofill,TouchTargetSizeCheck" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginStart="5dp"
+                        android:text="SECTION"
+                        android:fontFamily="@font/arialmt"
+                        android:textColor="@color/orangenew"
+                        android:textSize="17sp"/>
+
+                    <EditText
+                        android:id="@+id/editTextSection"
+                        style="@style/edittext_login_register"
+                        android:layout_marginTop="0dp"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/newbackground_edit"
+                        android:editable="false"
+                        android:enabled="true"
+                        android:focusable="false"
+                        android:hint="Select"
+                        android:inputType="text"
+                        android:textColor="@color/orangenew"
+                        android:textColorHint="@color/orangenew"
+                        tools:ignore="Autofill,TouchTargetSizeCheck" />
+
+
+                </LinearLayout>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnSearch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+
+                    android:background="@color/edit"
+                    android:text="SEARCH"
+                    android:textColor="@color/orangenew"
+                    android:textSize="16sp"
+                    tools:ignore="TouchTargetSizeCheck,TextContrastCheck" />
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/NestedScrollView"
+        android:layout_width="match_parent"
+        android:layout_marginBottom="15dp"
+        android:layout_height="match_parent">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_attendance"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="0dp"
+        android:visibility="visible"
+        android:layout_marginBottom="0dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/item_studentphoto"/>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <RelativeLayout
+        android:id="@+id/no_data_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textSize="30dp"
+            android:textColor="@color/menucolor"
+            android:text="No Data Found" />
+
+    </RelativeLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnSave"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="5dp"
+        android:background="@color/edit"
+        android:text="SAVE"
+        android:textColor="@color/menucolor"
+        android:textSize="16sp"
+        android:visibility="gone"
+        tools:ignore="TouchTargetSizeCheck" />
+
+</LinearLayout>

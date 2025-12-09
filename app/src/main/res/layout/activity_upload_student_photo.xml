@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/back"
+    tools:context=".activity.UploadStudentPhotoActivity">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:background="@drawable/appbar">
+
+        <ImageView
+            android:id="@+id/btnBack"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/undo" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:fontFamily="@font/arialmt"
+            android:padding="5dp"
+            android:text="Upload Photo"
+            android:textColor="@color/appbartext"
+            android:textSize="23sp"
+            android:textStyle="normal" />
+
+
+        <ImageButton
+            android:id="@+id/iv_delete"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="40dp"
+            android:visibility="gone"
+            android:background="@drawable/i1" />
+
+        <ImageButton
+            android:id="@+id/iv_logout"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="11dp"
+            android:background="@drawable/i2" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="10dp"
+                android:weightSum="3"
+                android:orientation="horizontal">
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginStart="0dp"
+                        android:text="CLASS"
+                        android:fontFamily="@font/arialmt"
+                        android:textColor="@color/orangenew"
+                        android:textSize="17sp"/>
+
+                    <EditText
+                        android:id="@+id/editTextClass"
+                        style="@style/edittext_login_register"
+                        android:layout_marginTop="0dp"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/newbackground_edit"
+                        android:textColor="@color/orangenew"
+                        android:textColorHint="@color/orangenew"
+                        android:editable="false"
+                        android:hint="Select"
+                        android:focusable="false"
+                        android:enabled="true"
+                        android:inputType="text"
+                        tools:ignore="Autofill" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginStart="5dp"
+                        android:text="SECTION"
+                        android:fontFamily="@font/arialmt"
+                        android:textColor="@color/orangenew"
+                        android:textSize="17sp"/>
+
+                    <EditText
+                        android:id="@+id/editTextSection"
+                        style="@style/edittext_login_register"
+                        android:layout_marginTop="0dp"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/newbackground_edit"
+                        android:textColor="@color/orangenew"
+                        android:textColorHint="@color/orangenew"
+                        android:editable="false"
+                        android:hint="Select"
+                        android:focusable="false"
+                        android:enabled="true"
+                        android:inputType="text"
+                        tools:ignore="Autofill" />
+
+
+                </LinearLayout>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnSearch"
+                    android:layout_width="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@color/edit"
+                    android:visibility="gone"
+                    android:textColor="@color/orangenew"
+                    android:text="SEARCH"
+                    android:textSize="16sp"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/llImage"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/newbackground_edit"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profile_image"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentStart="true"
+                android:layout_gravity="center"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="2dp"
+                android:layout_marginBottom="2dp"
+                android:src="@drawable/dummy" />
+
+            <!--<ImageView
+                android:id="@+id/iv_calendar"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/girl"
+                android:scaleType="fitXY"
+                android:visibility="gone" />-->
+
+            <TextView
+                android:id="@+id/tvName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center"
+                android:layout_toEndOf="@id/profile_image"
+                android:layout_weight="1"
+                android:fontFamily="@font/arialmt"
+                android:maxLines="1"
+                android:text="01. AISHIKA TRIPATHI"
+                android:textColor="@color/menucolor"
+                android:textSize="15sp" />
+
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="2"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnCam"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_margin="10dp"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:background="@color/edit"
+                android:textColor="@color/orangenew"
+                android:text="FROM CAMERA"
+                android:textSize="16sp"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnBrowse"
+                android:layout_width="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical"
+                android:background="@color/edit"
+                android:textColor="@color/orangenew"
+                android:text="BROWSE FROM FILE"
+                android:textSize="16sp"/>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_save"
+        android:textColor="@color/menucolor"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:textColorHint="@color/menucolor"
+        android:backgroundTint="@color/edit"
+        android:text="SAVE" />
+
+</LinearLayout>

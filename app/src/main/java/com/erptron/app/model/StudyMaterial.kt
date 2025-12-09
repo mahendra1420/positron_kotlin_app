@@ -1,0 +1,32 @@
+package com.positron.teachers.model
+
+class StudyMaterial(
+    var status: Boolean? = false,
+    var id:String,
+    var school_id: String,
+    var message: String,
+    var session_id: String,
+    var class_id: String,
+    var section_id: String,
+    var subject_id: String,
+    var teacher_id: String,
+    var title: String,
+    var description: String,
+    var attachment_file: String,
+    var created_at: String,
+    var updated_at: String,
+/*    var staff_id: String,
+    var class_id: String,
+    var section_id: String,
+    var subject_id: String,
+    var title: String,
+    var document: String,
+    var created_on: String,
+    var for_month: String,
+    var visible: String,
+    var file_location: String,
+    var name: String,
+    var section: String,
+    var `class`: String,
+    //var 'class':String,*/
+)
