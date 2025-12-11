@@ -13,7 +13,7 @@ data class TeachersLogin(
     var contact_no: String? = null,
     var image: String? = null,
     var role: String? = null,
-    var roles: List<String>,
+    var roles: Map<String, String>? = null,
     var token: String? = null,
     var date_format: String? = null,
     var currency_symbol: String? = null,
@@ -27,4 +27,5 @@ data class TeachersLogin(
     var is_hidden: String? = null,
     var error_message: String? = null,
     val channel: String,
+
 )

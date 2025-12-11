@@ -302,13 +302,13 @@ class TeacherIdActivity :  BaseActivity(),View.OnClickListener {
                         dismissProgressDialog()
                         showMessage(response.body()?.error_message)
                     } else {
-                        if (response.body()?.status == true) {
+                        if (response.code() == 200) {
 
 
                             prefs.setSchoolCode(schoolCode)
                             prefs.setSchoolName(response.body()?.school_info?.school_name.toString())
 //                            prefs.setErpUrl("https://erptron.org/api/")//info
-                            prefs.setErpUrl("https://erptron.info/api/")//info
+                            prefs.setErpUrl("https://positron.cloudsoftware.website/api_teachers/")//info
 //                            prefs.setErpUrl("https://schoolerp.positrononline.in/ERP/public/api/")
                             prefs.setAddress1(response.body()?.school_info?.address_line_1.toString())
                             prefs.setSchoolId(response.body()?.school_info?.school_id.toString())

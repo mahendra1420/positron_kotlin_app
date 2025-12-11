@@ -377,7 +377,8 @@ class SpalshScreen : BaseActivity(), View.OnClickListener  {
         var encodedString = Base64.getEncoder().encodeToString(originalString.toByteArray())
 
         val call = loginApi.getTeacherLogin(
-           email, prefs.getSchoolCode().toString(), prefs.getSchoolId().toString() ,password, prefs.getFcmToken().toString() , versionName , "${Build.BRAND + Build.MODEL }"
+//           email, prefs.getSchoolCode().toString(), prefs.getSchoolId().toString() ,password, prefs.getFcmToken().toString() , versionName , "${Build.BRAND + Build.MODEL }"
+           email, encodedString
         )
 
         call.enqueue(object : Callback<TeachersLogin> {
@@ -386,37 +387,22 @@ class SpalshScreen : BaseActivity(), View.OnClickListener  {
                 response: Response<TeachersLogin>
             ) {
                 Log.e("MyResponse" , "getDataFromLogin ==> ${response.body().toString()}")
-                if (response.isSuccessful) {
-                    if (response.body()?.status == true) {
-                        if (response.body()?.mobile_app_default_pass == "1") {
-                            prefs.setTeacherId(response.body()?.id.toString())
-                            prefs.setName(response.body()?.username)
-                            prefs.setEmployCode(response.body()?.employee_id)
-                            prefs.setEmail(response.body()?.email)
-                            prefs.setAuthorizationToken(response.body()?.token)
-                            prefs.setImage(response.body()?.image)
-                            prefs.setContactNo(response.body()?.contact_no)
-                            prefs.setSubscribeTopicName(response.body()?.channel.toString())
-                            subscribeToTopic()
-                            val intent = Intent(this@SpalshScreen, PasswordResetActivity::class.java)
-                            startActivity(intent)
-                            finish()
-                        } else {
-                            prefs.setTeacherId(response.body()?.id.toString())
-                            prefs.setName(response.body()?.username)
-                            prefs.setEmail(response.body()?.email)
-                            prefs.setAuthorizationToken(response.body()?.token)
-                            prefs.setImage(response.body()?.image)
-                            prefs.setContactNo(response.body()?.contact_no)
-                            prefs.setEmployCode(response.body()?.employee_id)
-                            prefs.setSubscribeTopicName(response.body()?.channel.toString())
-                            prefs.setLoggedIn(true)
-                            dismissProgressDialog()
-                            subscribeToTopic()
-                            val intent = Intent(this@SpalshScreen, HomeActivity::class.java)
-                            startActivity(intent)
-                            finish()
-                        }
+                if (response.code() == 200) {
+                    if (response.body()?.username != null) {
+                        prefs.setTeacherId(response.body()?.id.toString())
+                        prefs.setName(response.body()?.username)
+                        prefs.setEmail(response.body()?.email)
+                        prefs.setAuthorizationToken(response.body()?.token)
+                        prefs.setImage(response.body()?.image)
+                        prefs.setContactNo(response.body()?.contact_no)
+                        prefs.setEmployCode(response.body()?.employee_id)
+                        prefs.setSubscribeTopicName(response.body()?.channel.toString())
+                        prefs.setLoggedIn(true)
+                        dismissProgressDialog()
+                        subscribeToTopic()
+                        val intent = Intent(this@SpalshScreen, HomeActivity::class.java)
+                        startActivity(intent)
+                        finish()
                     } else {
                         dismissProgressDialog()
                         showMessage(response.body()?.error.toString())

@@ -10,11 +10,11 @@ import java.io.File
 
 interface ApiClass {
 
-    @FormUrlEncoded
     @GET("{school_code}/H3M96F4BVQJZGWP7K8A5SR")
     fun getDataFromSchoolInfo(
         @Path("school_code") schoolCode: String
     ): Call<SchoolInfoNew<SchoolInfo>>
+
 
 
     @GET("app_version")
@@ -94,17 +94,15 @@ interface ApiClass {
 
     /*-------------------------------TEACHER APIS-------------------------------------------*/
 
-
-    @FormUrlEncoded
-    @POST("login")/*teachers_login/{email_id}/{password}*/
+    @POST("teachers_login/{email}/{password}")
     fun getTeacherLogin(
-        @Field("email") email: String,
-        @Field("school_code") school_code: String,
-        @Field("school_id") school_id: String,
-        @Field("password") password: String,
-        @Field("fcm_token") fcm_token: String,
-        @Field("app_version") app_version: String,
-        @Field("device_details") device_details: String,
+        @Path("email") email: String,
+        @Path("password") password: String,
+//        @Query("school_code") school_code: String,
+//        @Query("school_id") school_id: String,
+//        @Query("fcm_token") fcm_token: String,
+//        @Query("app_version") app_version: String,
+//        @Query("device_details") device_details: String,
     ): Call<TeachersLogin>
 
 
