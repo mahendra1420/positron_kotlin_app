@@ -1,5 +1,6 @@
 package com.positron.teachers.activity
 
+import Attendance
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.content.Intent
@@ -10,6 +11,7 @@ import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.WindowCompat
+import com.google.gson.Gson
 import com.google.gson.JsonArray
 import com.positron.teachers.adapters.AttendanceTeacherAdapter
 import com.positron.teachers.R
@@ -400,14 +402,15 @@ class AttendancetActivity : BaseActivity(), AttendanceTeacherAdapter.BookingDeta
     private fun getStudentsAttendance() {
         showProgressDialog()
 
-        val loggingInterceptor = HttpLoggingInterceptor().apply {
+        val logging = HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.BODY
         }
+
         val client = OkHttpClient.Builder()
-            .addInterceptor(loggingInterceptor)
-            .connectTimeout(120, TimeUnit.SECONDS) // Set connection timeout
-            .readTimeout(120, TimeUnit.SECONDS)    // Set read timeout
-            .writeTimeout(120, TimeUnit.SECONDS)   // Set write timeout
+            .addInterceptor(logging)
+            .connectTimeout(120, TimeUnit.SECONDS)
+            .readTimeout(120, TimeUnit.SECONDS)
+            .writeTimeout(120, TimeUnit.SECONDS)
             .build()
 
         val retrofit = Retrofit.Builder()
@@ -416,70 +419,57 @@ class AttendancetActivity : BaseActivity(), AttendanceTeacherAdapter.BookingDeta
             .client(client)
             .build()
 
-        val loginApi = retrofit.create(ApiClass::class.java)
+        val api = retrofit.create(ApiClass::class.java)
 
-        val call = loginApi.getStudentsAttendance(
-            "Bearer ${prefs.getAuthorizationToken().toString()}",
+        val call = api.getStudentsAttendance(
+            "Bearer ${prefs.getAuthorizationToken()}",
             prefs.getClassTeacherClassId().toString(),
             prefs.getTeacherClassSectionId().toString(),
             binding.tvDate.text.toString()
         )
 
-        call.enqueue(object : Callback<GetStudentsAttendance> {
+        call.enqueue(object : Callback<List<Attendance>> {
+
             override fun onResponse(
-                call: Call<GetStudentsAttendance>,
-                response: Response<GetStudentsAttendance>,
+                call: Call<List<Attendance>>,
+                response: Response<List<Attendance>>
             ) {
+                dismissProgressDialog()
 
-                if (response.isSuccessful) {
-                    classDataList.clear()
-                    val data = response.body()
+                if (!response.isSuccessful) {
+                    showMessage("Error: ${response.code()}")
+                    return
+                }
 
-                    val errorMessage = response.body()?.error
+                val list = response.body() ?: emptyList()
 
-                    if (!errorMessage.isNullOrEmpty()) {
-                        dismissProgressDialog()
-                        classDataList.clear()
-                        binding.NestedScrollView.visibility = View.GONE
-                        binding.rvAttendance.visibility = View.GONE
-                        binding.noDataLayout.visibility = View.VISIBLE
-                        binding.btnSave.visibility = View.GONE
-                        showMessage(errorMessage)
-                    }
-                    else {
+                classDataList.clear()
+                classDataList.addAll(list)
 
-                    classDataList = response.body()?.attendance as MutableList<Attendance>
-                    if (classDataList.isEmpty()) {
-                        dismissProgressDialog()
-                        binding.NestedScrollView.visibility = View.GONE
-                        binding.rvAttendance.visibility = View.GONE
-                        binding.noDataLayout.visibility = View.VISIBLE
-                        binding.btnSave.visibility = View.GONE
-                    } else {
-                        binding.btnSave.visibility = View.VISIBLE
-                        binding.NestedScrollView.visibility = View.VISIBLE
-                        binding.rvAttendance.visibility = View.VISIBLE
-                        binding.noDataLayout.visibility = View.GONE
-                        attendanceTeacherAdapter =
-                            AttendanceTeacherAdapter(
-                                this@AttendancetActivity,
-                                classDataList,
-                                this@AttendancetActivity
-                            )
-                        binding.rvAttendance.adapter = attendanceTeacherAdapter
-                    }
-                    }
-                    dismissProgressDialog()
+                if (classDataList.isEmpty()) {
+                    binding.NestedScrollView.visibility = View.GONE
+                    binding.rvAttendance.visibility = View.GONE
+                    binding.noDataLayout.visibility = View.VISIBLE
+                    binding.btnSave.visibility = View.GONE
                 } else {
-                    dismissProgressDialog()
-                    showMessage("Something went wrong : ${response.code()} \n NULL")
+                    binding.btnSave.visibility = View.VISIBLE
+                    binding.NestedScrollView.visibility = View.VISIBLE
+                    binding.rvAttendance.visibility = View.VISIBLE
+                    binding.noDataLayout.visibility = View.GONE
+
+                    attendanceTeacherAdapter =
+                        AttendanceTeacherAdapter(
+                            this@AttendancetActivity,
+                            classDataList,
+                            this@AttendancetActivity
+                        )
+                    binding.rvAttendance.adapter = attendanceTeacherAdapter
                 }
             }
 
-            override fun onFailure(call: Call<GetStudentsAttendance>, t: Throwable) {
+            override fun onFailure(call: Call<List<Attendance>>, t: Throwable) {
                 dismissProgressDialog()
-                //  Log.e("MyResponse", " failure registerApi Error ==> $t.message")
-                showMessage("Something went wrong : ${t.message.toString()} \n onFailure")
+                showMessage("Failure: ${t.message}")
             }
         })
     }
@@ -508,7 +498,7 @@ class AttendancetActivity : BaseActivity(), AttendanceTeacherAdapter.BookingDeta
 
         val jsonArray = JsonArray()
         for (i in 0 until classDataList.size) {
-            jsonArray.add(classDataList[i].student_id)
+            jsonArray.add(classDataList[i].student_session_id)
         }
 
         val jsonArrayNew = JsonArray()
@@ -516,21 +506,36 @@ class AttendancetActivity : BaseActivity(), AttendanceTeacherAdapter.BookingDeta
             jsonArrayNew.add(classDataList[j].attendance)
         }
 
-        val studentIdList: List<String> = jsonArray.map { it.asString }
-        val studentAttendanceList: List<String> = jsonArrayNew.map { it.asString }
-        val attendanceRequest = AttendanceRequest(
-            student_id = studentIdList,
+        // Build lists from classDataList
+        val studentIdList = classDataList.mapNotNull { it.student_session_id } // List<String?>
+        val studentAttendanceList = classDataList.map { it.attendance ?: "" } // keep empty if null
+
+        // Build attendance date array (repeat date per student)
+        val date = binding.tvDate.text.toString()
+        val attendanceDateList = List(studentIdList.size) { date }
+
+        // Convert lists to JSON strings (so they match cURL: '["a","b","c"]')
+        val gson = Gson()
+        val studentIdsJson = gson.toJson(studentIdList)
+        val attendanceTypesJson = gson.toJson(studentAttendanceList)
+        val attendanceDatesJson = gson.toJson(attendanceDateList)
+
+        // Debug logs
+        Log.e("MyLogData", "student_session_id => $studentIdsJson")
+        Log.e("MyLogData", "attendence_type_id => $attendanceTypesJson")
+        Log.e("MyLogData", "attendence_date => $attendanceDatesJson")
+        Log.e("MyLogData", "teacher_id => ${prefs.getTeacherId().toString()}")
+        val request = AttendanceRequest(
+            student_session_id = studentIdList,
             attendance_type_id = studentAttendanceList,
-            attendance_date = binding.tvDate.text.toString(),
-            class_id = prefs.getClassTeacherClassId().toString(),
-            section_id = prefs.getTeacherClassSectionId().toString()
+            teacher_id = prefs.getTeacherId().toString(),
+            attendance_date = attendanceDateList
         )
 
-        Log.e("MyLogData", " student_session_id ==> " + jsonArray)
-        Log.e("MyLogData", " attendence_type_id ==> " + jsonArrayNew)
-
         val call = loginApi.SaveAttendanceAPI(
-            "Bearer ${prefs.getAuthorizationToken().toString()}",attendanceRequest)
+            "Bearer ${prefs.getAuthorizationToken()}",
+            request
+        )
 
         call.enqueue(object : Callback<SaveAttendance> {
             override fun onResponse(

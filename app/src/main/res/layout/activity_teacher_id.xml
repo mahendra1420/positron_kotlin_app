@@ -71,7 +71,7 @@
                 android:enabled="true"
                 android:hint="Enter Your School ID "
                 android:inputType="text"
-                android:text=""
+                android:text="Positron"
                 android:textColor="@color/menucolor"
                 android:textColorHint="@color/menucolor"
                 tools:ignore="Autofill" />

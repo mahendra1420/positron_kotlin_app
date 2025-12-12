@@ -58,13 +58,13 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
         binding.rlAttendanceHistory.setOnClickListener(this)
         binding.rlLiveClass.setOnClickListener(this)
         binding.rlVideoClasses.setOnClickListener(this)
-        binding.rvTakePhoto.setOnClickListener(this)
+        binding.rvPracticeWorkSheet.setOnClickListener(this)
 
         binding.ivLogout.setOnClickListener(this)
         binding.btnBack.setOnClickListener(this)
         binding.tvName.text = prefs.getName()
         binding.tvEmail.text = prefs.getEmail()
-        binding.tvID.text =prefs.getEmployCode().toString()
+        binding.tvID.text = prefs.getEmployCode().toString()
         binding.tvContactNo.text ="+91 "+ prefs.getContactNo()
         Glide.with(this)
             .load(prefs.getImage().toString())
@@ -74,8 +74,8 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
             .into(binding.profileImage)
 
         if(isOnline()){
-            //getCircularData()
-            getNoticeData()
+            getCircularData()
+//            getNoticeData()
         }
 
         binding.ivDelete.setOnClickListener {
@@ -143,7 +143,7 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
             startActivity(Intent(this@HomeActivity, MarksEntryActivity::class.java))
         }
 
-        else if(viewId == R.id.rvTakePhoto){
+        else if(viewId == R.id.rvPracticeWorkSheet){
             //showMessage("Coming Soon....")
             startActivity(Intent(this@HomeActivity, StudentPhotoListActivity::class.java))
         }

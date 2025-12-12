@@ -1,5 +1,6 @@
 package com.positron.teachers.adapters
 
+import Attendance
 import android.annotation.SuppressLint
 import android.content.Context
 import android.util.Log
@@ -12,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.positron.teachers.R
-import com.positron.teachers.model.Attendance
 import de.hdodenhof.circleimageview.CircleImageView
 
 class AttendanceTeacherAdapter(
@@ -37,7 +37,7 @@ class AttendanceTeacherAdapter(
     override fun onBindViewHolder(holder: ViewHolder, @SuppressLint("RecyclerView") position: Int) {
         val data = mList[position]
 
-        holder.tvName.text = data.roll_no+". " + data.first_name + data.last_name
+        holder.tvName.text = data.roll_no+". " + data.student_name
 
         Glide.with(context)
             .load(data.student_photo)

@@ -28,7 +28,8 @@ class DialogActivity : BaseActivity(),  View.OnClickListener, DestinationCountry
     private lateinit var binding: ActivityDialogBinding
 
     private var destinationCountryAdapter: DestinationCountryAdapter? = null
-    private var classDataList: MutableList<Teacherclass> = mutableListOf()
+//    private var classDataList: MutableList<Teacherclass> = mutableListOf()
+    private var classDataList:MutableList<getClassTeacherClass> = mutableListOf()
     private var getClassTeacherclassList: MutableList<getClassTeacherClass> = mutableListOf()
     private var getClassTeacherSectionList: MutableList<getClassTeacherSection> = mutableListOf()
     private var getSubjectTeacherclassList: MutableList<getSubjectTeacherclass> = mutableListOf()
@@ -82,13 +83,14 @@ class DialogActivity : BaseActivity(),  View.OnClickListener, DestinationCountry
             .build()
 
         val loginApi = retrofit.create(ApiClass::class.java)
+        Log.e("MyLogData","teacher id ---> ${prefs.getTeacherId().toString()}")
 
-        val call = loginApi.getTeacherClass("Bearer ${prefs.getAuthorizationToken().toString()}")
+        val call = loginApi.getClassTeacherClass("${prefs.getTeacherId().toString()}")
 
-        call.enqueue(object : Callback<List<Teacherclass>> {
+        call.enqueue(object : Callback<List<getClassTeacherClass>> {
             override fun onResponse(
-                call: Call<List<Teacherclass>>,
-                response: Response<List<Teacherclass>>
+                call: Call<List<getClassTeacherClass>>,
+                response: Response<List<getClassTeacherClass>>
             ) {
                 Log.e("MyLogData","if upar")
                     if (response.isSuccessful) {
@@ -97,7 +99,7 @@ class DialogActivity : BaseActivity(),  View.OnClickListener, DestinationCountry
                     commonList.clear()
                     val data = response.body()
                     Log.e("MyLogData" ,"getTeacherClass ===== " + data.toString())
-                    classDataList = response.body() as MutableList<Teacherclass>
+                    classDataList = response.body() as MutableList<getClassTeacherClass>
 
 
 
@@ -108,10 +110,12 @@ class DialogActivity : BaseActivity(),  View.OnClickListener, DestinationCountry
                     } else {
 
                        // classDataList.addAll(response.body()?)
-                        for (item in classDataList.map { it.class_name }) {
-                            commonList.add(item)
+                        for (item in classDataList) {
+                            item.class_name?.let { name ->
+                                commonList.add(name)
+                            }
                         }
-
+                        Log.e("MyLogData","commonList " + commonList)
                         destinationCountryAdapter = DestinationCountryAdapter(
                             this@DialogActivity,
                             commonList,
@@ -136,7 +140,7 @@ class DialogActivity : BaseActivity(),  View.OnClickListener, DestinationCountry
                 }
             }
 
-            override fun onFailure(call: Call<List<Teacherclass>>, t: Throwable) {
+            override fun onFailure(call: Call<List<getClassTeacherClass>>, t: Throwable) {
                 dismissProgressDialog()
                   Log.e("MyLogData", "getTeacherClass ==> $t.message")
                 showMessage("Something went wrong : ${t.message.toString()} \n onFailure")
@@ -165,7 +169,7 @@ class DialogActivity : BaseActivity(),  View.OnClickListener, DestinationCountry
 
         val loginApi = retrofit.create(ApiClass::class.java)
 
-        val call = loginApi.getClassTeacherSection("Bearer ${prefs.getAuthorizationToken().toString()}",prefs.getClassTeacherClassId().toString())
+        val call = loginApi.getClassTeacherSection(prefs.getTeacherId().toString(),prefs.getClassTeacherClassId().toString())
 
         call.enqueue(object : Callback<List<getClassTeacherSection>> {
             override fun onResponse(
@@ -240,7 +244,7 @@ class DialogActivity : BaseActivity(),  View.OnClickListener, DestinationCountry
 
         val loginApi = retrofit.create(ApiClass::class.java)
 
-        val call = loginApi.getSubjectTeacherClass("Bearer ${prefs.getAuthorizationToken().toString()}")
+        val call = loginApi.getSubjectTeacherClass("${prefs.getTeacherId().toString()}")
 
         call.enqueue(object : Callback<List<getSubjectTeacherclass>> {
             override fun onResponse(
@@ -320,7 +324,7 @@ class DialogActivity : BaseActivity(),  View.OnClickListener, DestinationCountry
 
         val loginApi = retrofit.create(ApiClass::class.java)
 
-        val call = loginApi.getSubjectTeacherSection("Bearer ${prefs.getAuthorizationToken().toString()}",prefs.getSubjectTeacherClassId().toString())
+        val call = loginApi.getSubjectTeacherSection(prefs.getSubjectTeacherClassId().toString(),prefs.getTeacherId().toString())
 
         call.enqueue(object : Callback<List<getSubjectTeacherSection>> {
             override fun onResponse(
@@ -395,7 +399,11 @@ class DialogActivity : BaseActivity(),  View.OnClickListener, DestinationCountry
 
         val loginApi = retrofit.create(ApiClass::class.java)
 
-        val call = loginApi.getExamList("Bearer ${prefs.getAuthorizationToken().toString()}" , prefs.getSubjectTeacherClassId().toString(),)
+        val call = loginApi.getExamList(
+            prefs.getSubjectTeacherClassId().toString(),
+            prefs.getTeacherId().toString(),
+            prefs.getSubjectTeacherSectionId().toString()
+            )
 
         call.enqueue(object : Callback<List<GetExamList>> {
             override fun onResponse(
@@ -419,7 +427,7 @@ class DialogActivity : BaseActivity(),  View.OnClickListener, DestinationCountry
                     } else {
 
                         // classDataList.addAll(response.body()?)
-                        for (item in getExamList.map { it.title }) {
+                        for (item in getExamList.map { it.name }) {
                             commonList.add(item!!)
                         }
 
@@ -432,7 +440,7 @@ class DialogActivity : BaseActivity(),  View.OnClickListener, DestinationCountry
 
                     }
 
-                    val matchingItem = getExamList.find { it.title == search }
+                    val matchingItem = getExamList.find { it.name == search }
 
                     if (matchingItem != null) {
                         // Found the item
@@ -475,8 +483,12 @@ class DialogActivity : BaseActivity(),  View.OnClickListener, DestinationCountry
 
         val loginApi = retrofit.create(ApiClass::class.java)
        // Log.e("MyLogData" , "getSubjects param ==== "+ prefs.getClassTeacherClassId().toString() + " " +prefs.getTeacherClassSectionId().toString())
-        val call = loginApi.getSubjects("Bearer ${prefs.getAuthorizationToken().toString()}" , prefs.getSubjectTeacherClassId().toString(),prefs.getSubjectTeacherSectionId().toString(),/* prefs.getTeacherId().toString(),prefs.getExamId().toString(),prefs.getSubjectTeacherClassId().toString(),prefs.getSubjectTeacherSectionId().toString()*/)
-       // Log.e("MyLogData" , "getSubjects param ==== " + prefs.getClassTeacherClassId().toString() + " " +prefs.getTeacherClassSectionId().toString())
+        val call = loginApi.getSubjects(
+            prefs.getTeacherId().toString(),
+            prefs.getExamId().toString(),
+            prefs.getClassTeacherClassId().toString(),
+            prefs.getTeacherClassSectionId().toString(),)
+        Log.e("MyLogData" , "getSubjects param ==== " + prefs.getTeacherId().toString() +  "" +prefs.getExamId().toString() + "" + prefs.getClassTeacherClassId().toString() +  " " +prefs.getTeacherClassSectionId().toString())
         call.enqueue(object : Callback<List<GetSubjects>> {
             override fun onResponse(
                 call: Call<List<GetSubjects>>,
@@ -499,7 +511,7 @@ class DialogActivity : BaseActivity(),  View.OnClickListener, DestinationCountry
                     } else {
 
                         // classDataList.addAll(response.body()?)
-                        for (item in getSubjectList.map { it.name }) {
+                        for (item in getSubjectList.map { it.subject_name }) {
                             commonList.add(item!!)
                         }
 
@@ -512,7 +524,7 @@ class DialogActivity : BaseActivity(),  View.OnClickListener, DestinationCountry
 
                     }
 
-                    val matchingItem = getSubjectList.find { it.name == search }
+                    val matchingItem = getSubjectList.find { it.subject_name == search }
 
                     if (matchingItem != null) {
                         // Found the item
@@ -813,7 +825,7 @@ class DialogActivity : BaseActivity(),  View.OnClickListener, DestinationCountry
             classDataList.forEach {
                 if (it.class_name == item.toString()) {
                     prefs.setClassTeacherClassName(item)
-                    prefs.setClassTeacherClassId(it.class_id)
+                    prefs.setClassTeacherClassId(it.id)
                 }
             }
             finish()
@@ -821,7 +833,7 @@ class DialogActivity : BaseActivity(),  View.OnClickListener, DestinationCountry
             getClassTeacherSectionList.forEach {
                 if (it.section == item.toString()) {
                     prefs.setTeacherClassSectionName(item)
-                    prefs.setTeacherClassSectionId(it.id)
+                    prefs.setTeacherClassSectionId(it.section_id)
                 }
             }
             finish()
@@ -844,7 +856,7 @@ class DialogActivity : BaseActivity(),  View.OnClickListener, DestinationCountry
             finish()
         } else if (type == 5) {
             getExamList.forEach {
-                if (it.title == item.toString()) {
+                if (it.name == item.toString()) {
                     prefs.setExamName(item)
                     prefs.setExamId(it.id)
                 }
@@ -852,13 +864,13 @@ class DialogActivity : BaseActivity(),  View.OnClickListener, DestinationCountry
             finish()
         } else if (type == 6) {
             getSubjectList.forEach {
-                if (it.name == item.toString()) {
+                if (it.subject_name == item.toString()) {
                     prefs.setSubjectName(item)
-                    prefs.setSubjectId(it.id)
-                    prefs.setSubjectCategoryId(it.category_id.toString())
+                    prefs.setSubjectId(it.subject_id)
+//                    prefs.setSubjectCategoryId(it.category_id.toString())
                     Log.d(
                         "MyLogData",
-                        "Subject selected: ${item}, ID = ${it.id}, CategoryID = ${it.category_id}"
+                        "Subject selected: ${item}, ID = ${it.subject_id}"
                     )
                 }
             }

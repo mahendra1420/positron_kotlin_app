@@ -1,5 +1,6 @@
 package com.positron.teachers.api
 
+import Attendance
 import com.positron.teachers.model.*
 import com.google.gson.JsonObject
 import okhttp3.MultipartBody
@@ -136,25 +137,27 @@ interface ApiClass {
 
     //getClassTeacherSection
     //@FormUrlEncoded
-    @GET("getAttendanceSection")
+    @GET("getClassTeacherSection/{Teacher_ID}/{class_id}")
     fun getClassTeacherSection(
-        @Header("Authorization") Authorization: String,
-        @Query("class_id") class_id: String,
+//        @Header("Authorization") Authorization: String,
+        @Path("Teacher_ID") teacher_id: String,
+        @Path("class_id") class_id: String,
     ): Call<List<getClassTeacherSection>>
 
     //getSubjectTeacherClass
-    @GET("getSubjectTeacherClass")
+    @GET("getSubjectTeacherClass/{Teacher_ID}")
     fun getSubjectTeacherClass(
-        @Header("Authorization") Authorization: String,
+        @Path("Teacher_ID") teacher_id: String,
     ): Call<List<getSubjectTeacherclass>>
 
     //getSubjectTeacherSection
     //@FormUrlEncoded
-    @GET("getSubjectTeacherSections")
+    @GET("getSubjectTeacherSection/{Teacher_ID}/{class_id}")
     fun getSubjectTeacherSection(
-        @Header("Authorization") Authorization: String,
-        @Query("class_id") class_id: String,
-    ): Call<List<getSubjectTeacherSection>>
+        @Path("class_id") class_id: String,
+        @Path("Teacher_ID") teacher_id: String,
+
+        ): Call<List<getSubjectTeacherSection>>
 
     @GET("teacher_notice")
     fun getNoticeData(
@@ -165,27 +168,30 @@ interface ApiClass {
     fun getCircularData(): Call<Circular<List<CircularUpdates>>>
 
 
-    @GET("getAttendance/{Class_ID}/{Section_ID}/{Date}")
+    @GET("getStudentsAttendance/{Class_ID}/{Section_ID}/{Date}")
     fun getStudentsAttendance(
         @Header("Authorization") Authorization: String,
         @Path("Class_ID") class_id: String,
         @Path("Section_ID") section_id: String,
         @Path("Date") date: String,
-    ): Call<GetStudentsAttendance>
+    ): Call<List<Attendance>>
 
 
-    @GET("getExamListOfClass")
+    @GET("getExamList/{Teacher_ID}/{class_id}/{Section_ID}")
     fun getExamList(
-        @Header("Authorization") Authorization: String,
-        @Query("class_id") class_id: String,
+        @Path("class_id") class_id: String,
+        @Path("Teacher_ID") Teacher_ID: String,
+        @Path("Section_ID") section_id: String,
     ): Call<List<GetExamList>>
 
 
-    @POST("saveAttendance")
+    @POST("save_attendance")
     fun SaveAttendanceAPI(
-        @Header("Authorization") Authorization: String,
-        @Body attendanceRequest: AttendanceRequest,
+        @Header("Authorization") token: String,
+        @Body request: AttendanceRequest
     ): Call<SaveAttendance>
+
+
 
     @POST("saveStudentMonthAttendanceHistory")
     fun saveStudentMonthAttendanceHistory(
@@ -222,11 +228,12 @@ interface ApiClass {
 //        @Field("class_id") class_id: String,
 //        /*@Path("Section_ID") section_id: String,*/
 //    ): Call<List<GetSubjects>>
-    @POST("getSubjectsList")
+    @GET("getSubjects/{Teacher_ID}/{Exam_ID}/{Class_ID}/{Section_ID}")
     fun getSubjects(
-        @Header("Authorization") authorization: String,
-        @Field("class_id") classId: String,
-        @Field("section_id") sectionId: String
+        @Path("Teacher_ID") Teacher_ID: String,
+        @Path("Exam_ID") Exam_ID: String,
+        @Path("Class_ID") classId: String,
+        @Path("Section_ID") sectionId: String
     ): Call<List<GetSubjects>>
 
 

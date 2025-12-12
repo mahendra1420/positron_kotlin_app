@@ -15,7 +15,7 @@ data class GetExamList(
     var created_at: String? = null,
     var updated_at: String? = null,
     var is_hidden: String? = null,
-    var title: String? = null,
+//    var title: String? = null,
     var visible_to_teachers: String? = null,
     var exam_type: String? = null,
     var visible_to_outsource: String? = null,

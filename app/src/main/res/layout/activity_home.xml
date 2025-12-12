@@ -247,38 +247,36 @@
                                     android:layout_height="80dp"
                                     android:layout_marginTop="30dp"
                                     android:background="@color/line" />
-
                                 <RelativeLayout
-                                    android:id="@+id/rlVideoClasses"
+                                    android:id="@+id/rlTeacherRemarks"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:visibility="visible"
                                     android:layout_weight="1">
 
                                     <ImageView
-                                        android:id="@+id/video"
+                                        android:id="@+id/teacher"
                                         android:layout_width="60dp"
                                         android:layout_height="60dp"
                                         android:layout_centerHorizontal="true"
                                         android:layout_marginTop="10dp"
-                                        android:padding="10dp"
                                         android:layout_marginBottom="5dp"
+
                                         android:contentDescription="@string/app_name"
-                                        android:src="@drawable/takephoto" />
+                                        android:src="@drawable/teacherremarks" />
 
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:layout_below="@+id/video"
+                                        android:layout_below="@+id/teacher"
                                         android:layout_centerHorizontal="true"
                                         android:layout_marginBottom="10dp"
                                         android:fontFamily="@font/arialmt"
-                                        android:text="Take\nPhoto"
-                                        android:textAlignment="center"
+                                        android:text="TEACHER\nREMARKS"
                                         android:textColor="@color/menucolor"
                                         android:textSize="12sp" />
 
                                 </RelativeLayout>
-
 
 
                                 <View
@@ -319,35 +317,36 @@
                                 </RelativeLayout>
 
                                 <RelativeLayout
-                                    android:id="@+id/rlTeacherRemarks"
+                                    android:id="@+id/rlVideoClasses"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:visibility="visible"
                                     android:layout_weight="1">
 
                                     <ImageView
-                                        android:id="@+id/teacher"
+                                        android:id="@+id/video"
                                         android:layout_width="60dp"
                                         android:layout_height="60dp"
                                         android:layout_centerHorizontal="true"
                                         android:layout_marginTop="10dp"
+                                        android:padding="10dp"
                                         android:layout_marginBottom="5dp"
-
                                         android:contentDescription="@string/app_name"
-                                        android:src="@drawable/teacherremarks" />
+                                        android:src="@drawable/takephoto" />
 
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:layout_below="@+id/teacher"
+                                        android:layout_below="@+id/video"
                                         android:layout_centerHorizontal="true"
                                         android:layout_marginBottom="10dp"
                                         android:fontFamily="@font/arialmt"
-                                        android:text="TEACHER\nREMARKS"
+                                        android:text="Take\nPhoto"
+                                        android:textAlignment="center"
                                         android:textColor="@color/menucolor"
                                         android:textSize="12sp" />
 
                                 </RelativeLayout>
+
 
                             </LinearLayout>
 
@@ -361,7 +360,7 @@
                                     android:id="@+id/rlClassRoutine"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:visibility="visible"
+                                    android:visibility="gone"
                                     android:layout_weight="1">
 
                                     <View
@@ -369,6 +368,7 @@
                                         android:layout_height="1dp"
                                         android:layout_marginStart="10dp"
                                         android:layout_marginBottom="30dp"
+                                        android:visibility="gone"
                                         android:background="@color/line" />
 
                                     <ImageView
@@ -378,6 +378,7 @@
                                         android:layout_centerHorizontal="true"
                                         android:layout_marginTop="10dp"
                                         android:layout_marginBottom="5dp"
+                                        android:visibility="gone"
                                         android:contentDescription="@string/app_name"
                                         android:src="@drawable/classrountine" />
 
@@ -391,6 +392,7 @@
                                         android:text="Time\nTable"
                                         android:textAlignment="center"
                                         android:textColor="@color/menucolor"
+                                        android:visibility="gone"
                                         android:textSize="14sp" />
 
 
@@ -405,6 +407,7 @@
                                         android:layout_width="1dp"
                                         android:layout_height="80dp"
                                         android:layout_marginTop="20dp"
+                                        android:visibility="gone"
                                         android:background="@color/line" />
 
                                     <View
@@ -527,7 +530,50 @@
 
 
 
+                                <RelativeLayout
+                                    android:id="@+id/rlLiveClass"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1">
+                                    <View
+                                        android:layout_width="60dp"
+                                        android:layout_height="1dp"
+                                        android:layout_marginStart="10dp"
+                                        android:layout_marginBottom="30dp"
+                                        android:background="@color/line" />
 
+                                    <ImageView
+                                        android:id="@+id/live"
+                                        android:layout_width="60dp"
+                                        android:layout_height="60dp"
+                                        android:layout_centerHorizontal="true"
+                                        android:layout_marginTop="10dp"
+                                        android:padding="10dp"
+                                        android:layout_marginBottom="5dp"
+                                        android:contentDescription="@string/app_name"
+                                        android:src="@drawable/liveclass" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_below="@+id/live"
+                                        android:layout_centerHorizontal="true"
+                                        android:layout_marginBottom="10dp"
+                                        android:fontFamily="@font/arialmt"
+                                        android:textAlignment="center"
+                                        android:text="LIVE\nCLASSES"
+                                        android:textColor="@color/menucolor"
+                                        android:textSize="12sp" />
+
+                                </RelativeLayout>
+
+
+
+                                <View
+                                    android:layout_width="1dp"
+                                    android:layout_height="80dp"
+                                    android:layout_marginTop="20dp"
+                                    android:background="@color/line" />
 
                                 <RelativeLayout
                                     android:id="@+id/rlStudyMatireal"
@@ -560,53 +606,6 @@
                                         android:fontFamily="@font/arialmt"
                                         android:text="STUDY\nMATERIALS"
                                         android:textAlignment="center"
-                                        android:textColor="@color/menucolor"
-                                        android:textSize="12sp" />
-
-                                </RelativeLayout>
-
-
-                                <View
-                                    android:layout_width="1dp"
-                                    android:layout_height="80dp"
-                                    android:layout_marginTop="20dp"
-                                    android:background="@color/line"
-                                    android:visibility="gone"/>
-                                <RelativeLayout
-                                    android:id="@+id/rlLiveClass"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:visibility="gone"
-                                    android:layout_weight="1">
-                                    <View
-                                        android:layout_width="60dp"
-                                        android:layout_height="1dp"
-                                        android:layout_marginStart="10dp"
-                                        android:layout_marginBottom="30dp"
-                                        android:background="@color/line" />
-
-                                    <ImageView
-                                        android:id="@+id/live"
-                                        android:layout_width="60dp"
-                                        android:layout_height="60dp"
-                                        android:layout_centerHorizontal="true"
-                                        android:layout_marginTop="10dp"
-                                        android:padding="10dp"
-                                        android:visibility="invisible"
-                                        android:layout_marginBottom="5dp"
-                                        android:contentDescription="@string/app_name"
-                                        android:src="@drawable/liveclass" />
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_below="@+id/live"
-                                        android:layout_centerHorizontal="true"
-                                        android:layout_marginBottom="10dp"
-                                        android:visibility="invisible"
-                                        android:fontFamily="@font/arialmt"
-                                        android:textAlignment="center"
-                                        android:text="HOME\nWORK"
                                         android:textColor="@color/menucolor"
                                         android:textSize="12sp" />
 
@@ -659,7 +658,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="15dp"
                     android:layout_marginBottom="30dp"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     android:weightSum="4">
 
 <!--                    <androidx.cardview.widget.CardView
@@ -671,7 +670,7 @@
                         app:cardCornerRadius="10dp">-->
 
                         <RelativeLayout
-                            android:id="@+id/rvTakePhoto"
+                            android:id="@+id/rvPracticeWorkSheet"
                             android:layout_width="0dp"
                             android:background="@drawable/background_edit"
                             android:layout_weight="1"
@@ -685,10 +684,9 @@
                                 android:layout_height="60dp"
                                 android:layout_centerHorizontal="true"
                                 android:layout_marginTop="5dp"
-                                android:padding="10dp"
                                 android:layout_marginBottom="1dp"
                                 android:contentDescription="@string/app_name"
-                                android:src="@drawable/takephoto" />
+                                android:src="@drawable/practiceworksheet" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -697,7 +695,7 @@
                                 android:layout_centerHorizontal="true"
                                 android:layout_marginBottom="10dp"
                                 android:fontFamily="@font/arialmt"
-                                android:text="Take\nPhoto"
+                                android:text="Practice\nWorksheet"
                                 android:textAlignment="center"
                                 android:textColor="@color/menucolor"
                                 android:textSize="12sp" />
