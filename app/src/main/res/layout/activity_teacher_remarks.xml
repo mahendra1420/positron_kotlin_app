@@ -154,7 +154,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:layout_marginStart="5dp"
-                    android:text="FORMAT NAME"
+                    android:text="EXAM NAME"
                     android:fontFamily="@font/arialmt"
                     android:textColor="@color/menucolor"
                     android:textSize="17sp"/>
