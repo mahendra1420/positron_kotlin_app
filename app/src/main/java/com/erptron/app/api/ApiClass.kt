@@ -184,6 +184,9 @@ interface ApiClass {
         @Path("Section_ID") section_id: String,
     ): Call<List<GetExamList>>
 
+    @GET("getExamList")
+    fun getExamListSimple(): Call<List<GetExamList>>
+
 
     @POST("save_attendance")
     fun SaveAttendanceAPI(
@@ -206,20 +209,32 @@ interface ApiClass {
         @Body attendanceRequest: AttendanceCoRequest,
     ): Call<SaveAttendance>
 
-    //getStudentsExam
     @FormUrlEncoded
-    @POST("getStudentsList")//getStudentsExam/{Class_ID}/{Section_ID}/{Subject_ID}/{Exam_ID}/{Section}/{ClassID}
-    // @GET("getStudentsExam/5/1/28/31/1/1")
-    fun getStudentsExam(
+    @POST("save_marks_entry")
+    fun saveMarksEntryForm(
         @Header("Authorization") Authorization: String,
+        @Field("save_exam") save_exam: String,
+        @Field("exam_id") exam_id: String,
+        @Field("student_id") student_id: String,
+        @Field("exam_schedule_id") exam_schedule_id: String,
         @Field("class_id") class_id: String,
         @Field("section_id") section_id: String,
         @Field("subject_id") subject_id: String,
-        @Field("exam_id") exam_id: String,
-        @Field("subject_category_id") subject_category_id: String?,
-    ): Call<ExamScheduleData>
+        @Field("teacher_id") teacher_id: String,
+        @Field("get_marks") get_marks: String,
+        @Field("attendence") attendence: String,
+    ): Call<SaveAttendance>
 
-    @FormUrlEncoded
+    @GET("getStudentsExam/{Class_ID}/{Section_ID}/{Subject_ID}/{Exam_ID}/{Subject_Category_ID}/{Term_ID}")
+    fun getStudentsExam(
+        @Path("Class_ID") class_id: String,
+        @Path("Section_ID") section_id: String,
+        @Path("Subject_ID") subject_id: String,
+        @Path("Exam_ID") exam_id: String,
+        @Path("Subject_Category_ID") subject_category_id: String,
+        @Path("Term_ID") term_id: String,
+    ): Call<List<WithMark>>
+
 //    @POST("getSubjectsList")//{Teacher_ID}/{Exam_ID}/{Class_ID}/{Section_ID}
 //    fun getSubjects(
 //        @Header("Authorization") Authorization: String,
@@ -379,6 +394,14 @@ interface ApiClass {
         @Field("section_id") section_id: String,
         @Field("format_id") format_id: String,
     ) : Call<getStudentForRemarks>
+
+    @GET("teacher_remarks/{Teacher_ID}/{Exam_ID}/{Class_ID}/{Section_ID}")
+    fun getTeacherRemarksStudents(
+        @Path("Teacher_ID") teacher_id: String,
+        @Path("Exam_ID") exam_id: String,
+        @Path("Class_ID") class_id: String,
+        @Path("Section_ID") section_id: String,
+    ): Call<List<TeacherRemarks>>
 
     @POST("SaveStudentRemarks")
     fun saveStudentRemarks(

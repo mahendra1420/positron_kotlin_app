@@ -536,7 +536,7 @@ class AttendancetActivity : BaseActivity(), AttendanceTeacherAdapter.BookingDeta
             "Bearer ${prefs.getAuthorizationToken()}",
             request
         )
-
+        Log.e("save attendance", "request => ${request}")
         call.enqueue(object : Callback<SaveAttendance> {
             override fun onResponse(
                 call: Call<SaveAttendance>,

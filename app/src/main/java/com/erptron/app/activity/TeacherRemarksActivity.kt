@@ -22,7 +22,6 @@ import com.positron.teachers.model.ReMarkRequest
 import com.positron.teachers.model.Remarks
 import com.positron.teachers.model.SaveAttendance
 import com.positron.teachers.model.TeacherRemarksRequest
-import com.positron.teachers.model.getStudentForRemarks
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
@@ -215,11 +214,18 @@ class TeacherRemarksActivity : BaseActivity(), View.OnClickListener, TeacherRema
         val loggingInterceptor = HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.BODY
         }
+        val authInterceptor = okhttp3.Interceptor { chain ->
+            val request = chain.request().newBuilder()
+                .addHeader("Authorization", "Bearer ${prefs.getAuthorizationToken()}")
+                .build()
+            chain.proceed(request)
+        }
         val client = OkHttpClient.Builder()
+            .addInterceptor(authInterceptor)
             .addInterceptor(loggingInterceptor)
-            .connectTimeout(120, TimeUnit.SECONDS) // Set connection timeout
-            .readTimeout(120, TimeUnit.SECONDS)    // Set read timeout
-            .writeTimeout(120, TimeUnit.SECONDS)   // Set write timeout
+            .connectTimeout(120, TimeUnit.SECONDS)
+            .readTimeout(120, TimeUnit.SECONDS)
+            .writeTimeout(120, TimeUnit.SECONDS)
             .build()
 
         val retrofit = Retrofit.Builder()
@@ -229,38 +235,33 @@ class TeacherRemarksActivity : BaseActivity(), View.OnClickListener, TeacherRema
             .build()
 
         val loginApi = retrofit.create(ApiClass::class.java)
+        val call = loginApi.getTeacherRemarksStudents(
+            prefs.getTeacherId().toString(),
+            prefs.getFormatId().toString(),
+            prefs.getClassTeacherClassId().toString(),
+            prefs.getTeacherClassSectionId().toString()
+        )
 
-        val call = loginApi.getStudentForRemarks("Bearer ${prefs.getAuthorizationToken().toString()}",
-            prefs.getClassTeacherClassId().toString(),prefs.getTeacherClassSectionId().toString(),prefs.getFormatId().toString())
-
-        /*Log.e("MyLogData" , "getTeacherRemarks  param ==> " +  prefs.getTeacherId().toString() +
-            prefs.getExamId().toString() +
-            prefs.getClassTeacherClassId().toString() + prefs.getTeacherClassSectionId().toString())*/
-        call.enqueue(object : Callback<getStudentForRemarks> {
+        call.enqueue(object : Callback<List<TeacherRemarks>> {
             override fun onResponse(
-                call: Call<getStudentForRemarks>,
-                response: Response<getStudentForRemarks>
+                call: Call<List<TeacherRemarks>>,
+                response: Response<List<TeacherRemarks>>
             ) {
                 dismissProgressDialog()
 
                 if (response.isSuccessful && response.body() != null) {
-                    val responseBody = response.body()
-
+                    val students = response.body() ?: emptyList()
                     teacherRemarksList.clear()
                     remarksList.clear()
 
-                    val students = responseBody?.students
-                    val remarks = responseBody?.remarks
-
-                    if (students.isNullOrEmpty()) {
-                        Log.e("MyLogData", "No data available")
+                    if (students.isEmpty()) {
                         binding.rvTeacherRemarks.visibility = View.GONE
                         binding.NestedScrollView.visibility = View.GONE
                         binding.noDataLayout.visibility = View.VISIBLE
                         binding.btnSave.visibility = View.GONE
                     } else {
                         teacherRemarksList = students.toMutableList()
-                        remarksList = remarks?.toMutableList() ?: mutableListOf()
+                        remarksList = mutableListOf()
 
                         binding.btnSave.visibility = View.VISIBLE
                         binding.NestedScrollView.visibility = View.VISIBLE
@@ -276,15 +277,14 @@ class TeacherRemarksActivity : BaseActivity(), View.OnClickListener, TeacherRema
                         binding.rvTeacherRemarks.adapter = teacherRemarksNewAdapter
                     }
                 } else {
-                    showMessage("Something went wrong : ${response.code()} \n ${response.body()?.message ?: "NULL"}")
+                    showMessage("Something went wrong : ${response.code()}")
                 }
             }
 
-
-            override fun onFailure(call: Call<getStudentForRemarks>, t: Throwable) {
+            override fun onFailure(call: Call<List<TeacherRemarks>>, t: Throwable) {
                 dismissProgressDialog()
                 Log.e("MyResponse", " failure registerApi Error ==> $t.message")
-                showMessage("Something went wrong : ${t.message.toString()} \n onFailure")
+                showMessage("Something went wrong : ${t.message}")
             }
         })
     }
@@ -311,7 +311,8 @@ class TeacherRemarksActivity : BaseActivity(), View.OnClickListener, TeacherRema
         val loginApi = retrofit.create(ApiClass::class.java)
         val jsonArraySi = JsonArray()
         for (i in 0 until teacherRemarksList.size) {
-            jsonArraySi.add(teacherRemarksList[i].id)
+            val studentId = teacherRemarksList[i].student_id ?: teacherRemarksList[i].id?.toString() ?: ""
+            jsonArraySi.add(studentId)
         }
 
 

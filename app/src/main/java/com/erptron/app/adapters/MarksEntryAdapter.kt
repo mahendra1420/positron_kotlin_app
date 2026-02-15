@@ -42,7 +42,7 @@ class MarksEntryAdapter(
 
         // Set up name and full marks
         holder.tvName.text = "${data.roll_no}. ${data.first_name}"
-        holder.etMarks.setText(data.exam_array.get_marks)
+        holder.etMarks.setText(data.examData.get_marks)
 
         // Load profile image
         Glide.with(context)
@@ -53,7 +53,7 @@ class MarksEntryAdapter(
             .into(holder.profileImage)
 
         // Update UI based on dropdown value
-        if (data.exam_array.dropdown == 1) {
+        if (data.examData.dropdown == 1) {
             holder.llSpinner.visibility = View.VISIBLE
             holder.etMarks.visibility = View.GONE
             holder.spinner.visibility = View.VISIBLE
@@ -64,14 +64,14 @@ class MarksEntryAdapter(
             holder.spinner.adapter = adapter
 
             // Set spinner to the current selection
-            val selectedGrade = gradeList.find { it.id == data.exam_array.input_in_grade }
+            val selectedGrade = gradeList.find { it.id == data.examData.input_in_grade }
             val spinnerPosition = adapter.getPosition(selectedGrade)
             if (spinnerPosition >= 0) {
                 holder.spinner.setSelection(spinnerPosition)
             }
 
             holder.spinner.setOnTouchListener { _, _ ->
-                if (data.exam_array.attendence == "A") {
+                if (data.examData.attendence == "A") {
                     Toast.makeText(context, "Student is absent; you can't give marks or grade.", Toast.LENGTH_SHORT).show()
                     return@setOnTouchListener true // Prevent spinner from opening
                 }
@@ -81,7 +81,7 @@ class MarksEntryAdapter(
             holder.spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
                     val selectedGrade = gradeList[position]
-                    data.exam_array.get_marks = selectedGrade.id.toString()
+                    data.examData.get_marks = selectedGrade.id.toString()
                     onClick.onMarksUpdated(holder.adapterPosition, selectedGrade.id.toString())
                 }
 
@@ -96,7 +96,7 @@ class MarksEntryAdapter(
 
         // Set EditText interaction
         holder.etMarks.setOnTouchListener { _, _ ->
-            if (data.exam_array.attendence == "A") {
+            if (data.examData.attendence == "A") {
                 Toast.makeText(context, "Student is absent; you can't give marks.", Toast.LENGTH_SHORT).show()
                 return@setOnTouchListener true // Prevent EditText from being edited
             }
@@ -108,8 +108,8 @@ class MarksEntryAdapter(
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 s?.toString()?.toIntOrNull()?.let {
-                    if (data.exam_array.full_marks != null && it > data.exam_array.full_marks!!.toInt()) {
-                        Toast.makeText(context, "Marks cannot exceed ${data.exam_array.full_marks}", Toast.LENGTH_SHORT).show()
+                    if (data.examData.full_marks != null && it > data.examData.full_marks!!.toInt()) {
+                        Toast.makeText(context, "Marks cannot exceed ${data.examData.full_marks}", Toast.LENGTH_SHORT).show()
                         holder.etMarks.setText("")
                     }
                 }
@@ -117,27 +117,27 @@ class MarksEntryAdapter(
 
             override fun afterTextChanged(s: Editable?) {
                 val newMarks = s.toString()
-                data.exam_array.get_marks = newMarks
+                data.examData.get_marks = newMarks
                 onClick.onMarksUpdated(holder.adapterPosition, newMarks)
             }
         })
 
         // Handle radio button state
-        holder.radioButton.isChecked = data.exam_array.attendence == "A"
-        holder.etMarks.isEnabled = data.exam_array.attendence != "A"
+        holder.radioButton.isChecked = data.examData.attendence == "A"
+        holder.etMarks.isEnabled = data.examData.attendence != "A"
 
         holder.radioButton.setOnClickListener {
-            if (data.exam_array.attendence == "A") {
-                data.exam_array.attendence = "P"
+            if (data.examData.attendence == "A") {
+                data.examData.attendence = "P"
                 holder.radioButton.isChecked = false
                 holder.etMarks.isEnabled = true
                 onClick.onAttUpdated(position, "P")
             } else {
-                data.exam_array.attendence = "A"
+                data.examData.attendence = "A"
                 holder.radioButton.isChecked = true
                 holder.etMarks.isEnabled = false
                 holder.etMarks.setText("") // Clear marks when absent
-                data.exam_array.get_marks = ""
+                data.examData.get_marks = ""
                 onClick.onAttUpdated(position, "A")
             }
         }

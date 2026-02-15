@@ -10,20 +10,19 @@ android {
     namespace 'com.positron.teachers'
     signingConfigs {
         debug {
-            storeFile file('D:\\kotlin_project\\Positron\\Teacher\\app\\erptron.jks')
+            storeFile file('F:\\Rajeshwar Infotech Project\\Teacher\\app\\erptron.jks')
             storePassword '123456'
             keyPassword '123456'
             keyAlias 'erptron'
         }
         release {
-            storeFile file('D:\\kotlin_project\\Positron\\Teacher\\app\\erptron.jks')
+            storeFile file('F:\\Rajeshwar Infotech Project\\Teacher\\app\\erptron.jks')
             storePassword '123456'
             keyPassword '123456'
             keyAlias 'erptron'
         }
     }
     compileSdk 35
-
     defaultConfig {
         applicationId "com.positron.teachers"
         minSdk 21

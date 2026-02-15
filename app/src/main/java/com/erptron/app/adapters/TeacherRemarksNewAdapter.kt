@@ -48,7 +48,7 @@ class TeacherRemarksNewAdapter(
     override fun onBindViewHolder(holder: ViewHolder, @SuppressLint("RecyclerView") position: Int) {
         val data = mList[position]
 
-        holder.tvName.text = data.roll_no+". " + data.first_name
+        holder.tvName.text = data.roll_no + ". " + (data.student_name ?: data.first_name ?: "")
 
         holder.editTextRemarks.isEnabled = !data.remarks.isNullOrEmpty()
         holder.editTextRemarks.setText(data.remarks)

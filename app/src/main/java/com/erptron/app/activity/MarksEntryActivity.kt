@@ -6,12 +6,12 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AlertDialog
+import com.google.gson.Gson
 import com.google.gson.JsonArray
 import com.positron.teachers.adapters.MarksEntryAdapter
 import com.positron.teachers.R
 import com.positron.teachers.api.ApiClass
 import com.positron.teachers.databinding.ActivityMarksEntryBinding
-import com.positron.teachers.model.AttendanceCoRequest
 import com.positron.teachers.model.ExamScheduleData
 import com.positron.teachers.model.Grade
 import com.positron.teachers.model.GradeNew
@@ -208,7 +208,7 @@ class MarksEntryActivity : BaseActivity(), View.OnClickListener,
             if (isOnline()) {
 
                 //   getmarks()
-                if (examScheduleDataList[0].exam_array.dropdown == 1) {
+                if (examScheduleDataList[0].examData.dropdown == 1) {
                     getSaveMarksEntry("1")
                 } else {
                     getSaveMarksEntry("")
@@ -294,7 +294,14 @@ class MarksEntryActivity : BaseActivity(), View.OnClickListener,
         val loggingInterceptor = HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.BODY
         }
+        val authInterceptor = okhttp3.Interceptor { chain ->
+            val request = chain.request().newBuilder()
+                .addHeader("Authorization", "Bearer ${prefs.getAuthorizationToken()}")
+                .build()
+            chain.proceed(request)
+        }
         val client = OkHttpClient.Builder()
+            .addInterceptor(authInterceptor)
             .addInterceptor(loggingInterceptor)
             .connectTimeout(120, TimeUnit.SECONDS) // Set connection timeout
             .readTimeout(120, TimeUnit.SECONDS)    // Set read timeout
@@ -308,86 +315,62 @@ class MarksEntryActivity : BaseActivity(), View.OnClickListener,
             .build()
 
         val loginApi = retrofit.create(ApiClass::class.java)
-        val selectedName = prefs.getSubSubjectCategoryName().toString()
-        val mappedCategory = when (selectedName) {
-            "Third Language" -> "third_language"
-            "Second Language" -> "second_language"
-            else -> selectedName.lowercase().replace(" ", "_")
-        }
+        val subjectCategoryId = prefs.getSubjectCategoryId().orEmpty().takeIf { it.isNotEmpty() } ?: "1"
+        val termId = "1"
         val call = loginApi.getStudentsExam(
-            "Bearer ${prefs.getAuthorizationToken().toString()}",
             prefs.getSubjectTeacherClassId().toString(),
             prefs.getSubjectTeacherSectionId().toString(),
             prefs.getSubjectId().toString(),
-            prefs.getExamId().toString(),/*"1","1"*/
-            mappedCategory ,/*"1","1"*/
+            prefs.getExamId().toString(),
+            subjectCategoryId,
+            termId
         )
-        Log.e("3333333333333333333", "3333333333333333"  )
-
-        //val call = loginApi.getStudentsExam("5","1","28","31","1","1")
 
         /* Log.e("MyLogData","param  === " + prefs.getSubjectTeacherClassId().toString() +
              prefs.getSubjectTeacherSectionId().toString() + prefs.getSubjectId().toString()  +
              prefs.getExamId().toString())*/
 
-        call.enqueue(object : Callback<ExamScheduleData> {
+        call.enqueue(object : Callback<List<WithMark>> {
             override fun onResponse(
-                call: Call<ExamScheduleData>,
-                response: Response<ExamScheduleData>,
+                call: Call<List<WithMark>>,
+                response: Response<List<WithMark>>,
             ) {
-                Log.e("11111111111", "1111111111" + response.body())
                 if (response.isSuccessful) {
-                    if (response.body()?.status == true) {
-                        Log.e("2222222222222", "22222222222" + response.body())
-                        examScheduleDataList.clear()
-                        examGradeNewList.clear()
-                        examScheduleDataList = response.body()?.with_marks as MutableList<WithMark>
-                        examGradeNewList = response.body()?.marksgrade as MutableList<GradeNew>
-                        Log.e("MyLogData", "if no upar" + response.body())
-                        if (examScheduleDataList.isEmpty()) {
-                            Log.e("MyLogData", "if")
-
-                            binding.rvMarksEntry.visibility = View.GONE
-                            binding.NestedScrollView.visibility = View.GONE
-                            binding.noDataLayout.visibility = View.VISIBLE
-                            binding.btnSave.visibility = View.GONE
-                        } else {
-                            binding.btnSave.visibility = View.VISIBLE
-                            binding.NestedScrollView.visibility = View.VISIBLE
-                            binding.rvMarksEntry.visibility = View.VISIBLE
-                            Log.e("MyLogData", "else  " + examScheduleDataList)
-                            binding.noDataLayout.visibility = View.GONE
-                            marksEntryAdapter =
-                                MarksEntryAdapter(
-                                    this@MarksEntryActivity,
-                                    examScheduleDataList,
-                                    this@MarksEntryActivity,
-                                    examGradeNewList
-                                )
-                            binding.rvMarksEntry.adapter = marksEntryAdapter
-                        }
-                        dismissProgressDialog()
-                    } else {
-                        showMessage("${response.body()?.message.toString()}")
+                    val studentList = response.body() ?: emptyList()
+                    examScheduleDataList.clear()
+                    examGradeNewList.clear()
+                    examScheduleDataList = studentList.toMutableList()
+                    if (examScheduleDataList.isEmpty()) {
                         binding.rvMarksEntry.visibility = View.GONE
                         binding.NestedScrollView.visibility = View.GONE
                         binding.noDataLayout.visibility = View.VISIBLE
                         binding.btnSave.visibility = View.GONE
-                        dismissProgressDialog()
+                    } else {
+                        binding.btnSave.visibility = View.VISIBLE
+                        binding.NestedScrollView.visibility = View.VISIBLE
+                        binding.rvMarksEntry.visibility = View.VISIBLE
+                        binding.noDataLayout.visibility = View.GONE
+                        marksEntryAdapter = MarksEntryAdapter(
+                            this@MarksEntryActivity,
+                            examScheduleDataList,
+                            this@MarksEntryActivity,
+                            examGradeNewList
+                        )
+                        binding.rvMarksEntry.adapter = marksEntryAdapter
                     }
+                    dismissProgressDialog()
                 } else {
                     dismissProgressDialog()
-                    showMessage(" Something went wrong : ${response.code()} \n NULL")
+                    showMessage("Something went wrong : ${response.code()}")
                 }
             }
 
-            override fun onFailure(call: Call<ExamScheduleData>, t: Throwable) {
+            override fun onFailure(call: Call<List<WithMark>>, t: Throwable) {
                 dismissProgressDialog()
                 Log.e("MyResponse", " failure registerApi Error ==> $t.message")
-                showMessage("Something went wrong : ${t.message.toString()} \n 1")
+                showMessage("Something went wrong : ${t.message}")
             }
-        }
-        )
+        })
     }
 
     /*    private fun getmarks(){
@@ -421,40 +404,29 @@ class MarksEntryActivity : BaseActivity(), View.OnClickListener,
 
         val loginApi = retrofit.create(ApiClass::class.java)
 
-        val jsonArraySi = JsonArray()
-        for (i in 0 until examScheduleDataList.size) {
-            jsonArraySi.add(examScheduleDataList[i].student_id)
-        }
-        Log.e("MyLogData", " jsonArraySi  ==> $jsonArraySi")
-        val jsonArrayGm = JsonArray()
-        for (k in 0 until examScheduleDataList.size) {
-            jsonArrayGm.add(examScheduleDataList[k].exam_array.get_marks)
-        }
-        Log.e("MyLogData", " jsonArrayGm  ==> $jsonArrayGm")
-        val jsonArrayAt = JsonArray()
-        for (l in 0 until examScheduleDataList.size) {
-            jsonArrayAt.add(examScheduleDataList[l].exam_array.attendence)
-        }
-        Log.e("MyLogData", " jsonArrayAt  ==> $jsonArrayAt")
-        val studentIdList: List<String> = jsonArraySi.map { it.asString }
-        val get_marks: List<String> = jsonArrayGm.map { it.asString }
-//      val get_marks: List<String> =jsonArrayGm.map {
-//          if (it.isJsonNull) "" else it.asString
-//      }
-        val attendence: List<String> = jsonArrayAt.map { it.asString }
-        val attendanceRequest = AttendanceCoRequest(
-            prefs.getSubjectTeacherClassId().toString().toInt(),
-            prefs.getSubjectTeacherSectionId().toString().toInt(),
-            prefs.getExamId().toString().toInt(),
-            prefs.getSubjectId().toString().toInt(),
-            studentIdList,
-            get_marks,
-            attendence,
-        )
+        val studentIdList = examScheduleDataList.map { it.student_id ?: "" }
+        val examScheduleIdList = examScheduleDataList.map { it.examData.exam_schedule_id ?: "" }
+        val getMarksList = examScheduleDataList.map { it.examData.get_marks ?: "" }
+        val attendenceList = examScheduleDataList.map { it.examData.attendence ?: "pre" }
 
+        val gson = Gson()
+        val studentIdJson = gson.toJson(studentIdList)
+        val examScheduleIdJson = gson.toJson(examScheduleIdList)
+        val getMarksJson = gson.toJson(getMarksList)
+        val attendenceJson = gson.toJson(attendenceList)
 
-        val call = loginApi.SaveMarksEntry(
-            "Bearer ${prefs.getAuthorizationToken().toString()}", attendanceRequest
+        val call = loginApi.saveMarksEntryForm(
+            "Bearer ${prefs.getAuthorizationToken()}",
+            "save_exam",
+            prefs.getExamId().toString(),
+            studentIdJson,
+            examScheduleIdJson,
+            prefs.getSubjectTeacherClassId().toString(),
+            prefs.getSubjectTeacherSectionId().toString(),
+            prefs.getSubjectId().toString(),
+            prefs.getTeacherId().toString(),
+            getMarksJson,
+            attendenceJson
         )
 
         /*Log.e(

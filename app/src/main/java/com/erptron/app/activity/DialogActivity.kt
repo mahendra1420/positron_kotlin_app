@@ -482,13 +482,23 @@ class DialogActivity : BaseActivity(),  View.OnClickListener, DestinationCountry
             .build()
 
         val loginApi = retrofit.create(ApiClass::class.java)
-       // Log.e("MyLogData" , "getSubjects param ==== "+ prefs.getClassTeacherClassId().toString() + " " +prefs.getTeacherClassSectionId().toString())
+        // Use Subject Teacher prefs (MarksEntry flow) when available, else Class Teacher prefs
+        val classId = prefs.getSubjectTeacherClassId().orEmpty().takeIf { it.isNotEmpty() }
+            ?: prefs.getClassTeacherClassId().orEmpty()
+        val sectionId = prefs.getSubjectTeacherSectionId().orEmpty().takeIf { it.isNotEmpty() }
+            ?: prefs.getTeacherClassSectionId().orEmpty()
+        if (classId.isEmpty() || sectionId.isEmpty()) {
+            dismissProgressDialog()
+            showMessage("Please select Class and Section first")
+            return
+        }
         val call = loginApi.getSubjects(
             prefs.getTeacherId().toString(),
             prefs.getExamId().toString(),
-            prefs.getClassTeacherClassId().toString(),
-            prefs.getTeacherClassSectionId().toString(),)
-        Log.e("MyLogData" , "getSubjects param ==== " + prefs.getTeacherId().toString() +  "" +prefs.getExamId().toString() + "" + prefs.getClassTeacherClassId().toString() +  " " +prefs.getTeacherClassSectionId().toString())
+            classId,
+            sectionId
+        )
+        Log.e("MyLogData", "getSubjects param ==== ${prefs.getTeacherId()} ${prefs.getExamId()} $classId $sectionId")
         call.enqueue(object : Callback<List<GetSubjects>> {
             override fun onResponse(
                 call: Call<List<GetSubjects>>,
@@ -636,11 +646,18 @@ class DialogActivity : BaseActivity(),  View.OnClickListener, DestinationCountry
         val loggingInterceptor = HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.BODY
         }
+        val authInterceptor = okhttp3.Interceptor { chain ->
+            val request = chain.request().newBuilder()
+                .addHeader("Authorization", "Bearer ${prefs.getAuthorizationToken()}")
+                .build()
+            chain.proceed(request)
+        }
         val client = OkHttpClient.Builder()
+            .addInterceptor(authInterceptor)
             .addInterceptor(loggingInterceptor)
-            .connectTimeout(120, TimeUnit.SECONDS) // Set connection timeout
-            .readTimeout(120, TimeUnit.SECONDS)    // Set read timeout
-            .writeTimeout(120, TimeUnit.SECONDS)   // Set write timeout
+            .connectTimeout(120, TimeUnit.SECONDS)
+            .readTimeout(120, TimeUnit.SECONDS)
+            .writeTimeout(120, TimeUnit.SECONDS)
             .build()
 
         val retrofit = Retrofit.Builder()
@@ -650,63 +667,43 @@ class DialogActivity : BaseActivity(),  View.OnClickListener, DestinationCountry
             .build()
 
         val loginApi = retrofit.create(ApiClass::class.java)
-
-        val call = loginApi.getFormat("Bearer ${prefs.getAuthorizationToken().toString()}" , prefs.getClassTeacherClassId().toString(),prefs.getTeacherClassSectionId().toString())
+        val call = loginApi.getExamListSimple()
         //Log.e("MyLogData"," dssds" + prefs.getClassTeacherClassId().toString()  +  prefs.getTeacherClassSectionId().toString() )
 
-        call.enqueue(object : Callback<getFormat> {
+        call.enqueue(object : Callback<List<GetExamList>> {
             override fun onResponse(
-                call: Call<getFormat>,
-                response: Response<getFormat>
+                call: Call<List<GetExamList>>,
+                response: Response<List<GetExamList>>
             ) {
-
                 if (response.isSuccessful) {
-                    getFormatList.clear()
+                    getExamList.clear()
                     commonList.clear()
-                    val data = response.body()
-                    Log.e("MyLogData" ," ===== " + data.toString())
-                    getFormatList = response.body()!!.format as MutableList<FormatData>
+                    val examList = response.body() ?: emptyList()
+                    getExamList = examList.toMutableList()
 
-
-
-                    if (getFormatList.isEmpty()) {
-
+                    if (getExamList.isEmpty()) {
                         showMessage("No Exam Found")
-
                     } else {
-
-                        // classDataList.addAll(response.body()?)
-                        for (item in getFormatList.map { it.name }) {
-                            commonList.add(item!!)
+                        for (item in getExamList.map { it.name }) {
+                            commonList.add(item ?: "")
                         }
-
                         destinationCountryAdapter = DestinationCountryAdapter(
                             this@DialogActivity,
                             commonList,
                             this@DialogActivity
                         )
                         binding.recyclerViewList.adapter = destinationCountryAdapter
-
-                    }
-
-                    val matchingItem = getFormatList.find { it.name == search }
-
-                    if (matchingItem != null) {
-                        // Found the item
-                    } else {
-                        // Item not found
                     }
                     dismissProgressDialog()
                 } else {
                     dismissProgressDialog()
-                    showMessage("Something went wrong : ${response.code()} \n NULL")
+                    showMessage("Something went wrong : ${response.code()}")
                 }
             }
 
-            override fun onFailure(call: Call<getFormat>, t: Throwable) {
+            override fun onFailure(call: Call<List<GetExamList>>, t: Throwable) {
                 dismissProgressDialog()
-                //  Log.e("MyResponse", " failure registerApi Error ==> $t.message")
-                showMessage("Something went wrong : ${t.message.toString()} \n onFailure")
+                showMessage("Something went wrong : ${t.message}")
             }
         })
     }
@@ -867,7 +864,7 @@ class DialogActivity : BaseActivity(),  View.OnClickListener, DestinationCountry
                 if (it.subject_name == item.toString()) {
                     prefs.setSubjectName(item)
                     prefs.setSubjectId(it.subject_id)
-//                    prefs.setSubjectCategoryId(it.category_id.toString())
+                    prefs.setSubjectCategoryId(it.category_id?.toString() ?: "1")
                     Log.d(
                         "MyLogData",
                         "Subject selected: ${item}, ID = ${it.subject_id}"
@@ -884,10 +881,12 @@ class DialogActivity : BaseActivity(),  View.OnClickListener, DestinationCountry
             }
             finish()
         } else if (type == 8) {
-            getFormatList.forEach {
+            getExamList.forEach {
                 if (it.name == item.toString()) {
                     prefs.setFormatName(item)
                     prefs.setFormatId(it.id.toString())
+                    prefs.setExamName(item)
+                    prefs.setExamId(it.id.toString())
                     prefs.setSubSubjectCategoryName("")
                 }
             }

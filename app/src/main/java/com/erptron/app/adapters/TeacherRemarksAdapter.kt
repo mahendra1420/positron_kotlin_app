@@ -36,7 +36,7 @@ class TeacherRemarksAdapter(
 
        holder.editTextRemarks.setText(data.remarks)
 
-        holder.editTextAtt.setText(data.days_present)
+        holder.editTextAtt.setText(data.days_present ?: "")
 
 
 
