@@ -340,13 +340,16 @@ interface ApiClass {
     @GET("ddl_grades")
     fun getGrades(): Call<Grade>
 
-    @FormUrlEncoded
-    @POST("getStudentPhoto") //getStudentListPhotoSession/{Teacher_ID}/{Class_ID}/{Section_ID}/{CATEGORY}/T4veGNVrhnTqUR
+    @GET("getStudentListPhotoSession/{teacher_id}/{class_id}/{section_id}/{category}/{token}")
     fun getStudentListPhotoSession(
-        @Header("Authorization") Authorization: String,
-        @Field("class_id") class_id: String,
-        @Field("section_id") section_id: String,
-    ): Call<GetStudentsPhotoListMain>
+        @Header("Cookie") cookie: String,
+        @Header("Authorization") authorization: String,
+        @Path("teacher_id") teacher_id: String,
+        @Path("class_id") class_id: String,
+        @Path("section_id") section_id: String,
+        @Path("category") category: String,
+        @Path("token") token: String,
+    ): Call<List<GetStudentsPhotoList>>
 
     @Multipart
     @POST("saveStudentPhoto")

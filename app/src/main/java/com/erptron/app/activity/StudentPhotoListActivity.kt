@@ -10,7 +10,6 @@ import com.positron.teachers.R
 import com.positron.teachers.api.ApiClass
 import com.positron.teachers.databinding.ActivityStudentPhotoListBinding
 import com.positron.teachers.model.GetStudentsPhotoList
-import com.positron.teachers.model.GetStudentsPhotoListMain
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
@@ -109,25 +108,45 @@ class StudentPhotoListActivity : BaseActivity(), View.OnClickListener,
 
         val loginApi = retrofit.create(ApiClass::class.java)
 
+        // Get authorization token
+        val authToken = prefs.getAuthorizationToken().toString()
+        val authorizationHeader = if (authToken.startsWith("Bearer ")) {
+            authToken
+        } else {
+            "Bearer $authToken"
+        }
+        
+        // Use the authorization token as the token parameter in URL (without "Bearer " prefix)
+        val token = if (authToken.startsWith("Bearer ")) {
+            authToken.substring(7)
+        } else {
+            authToken
+        }
+        
+        // Cookie value - update this if you have a way to get it from login response
+        val cookieValue = "ci_session=8kvhqpk1rptamb2qr4ijgpvnsrnv72ud" // TODO: Get from login response or preferences
+        
         val call = loginApi.getStudentListPhotoSession(
-            "Bearer ${
-                prefs.getAuthorizationToken().toString()
-            }",
+            cookieValue,
+            authorizationHeader,
+            prefs.getTeacherId().toString(),
             prefs.getClassTeacherClassId().toString(),
-            prefs.getTeacherClassSectionId().toString()
+            prefs.getTeacherClassSectionId().toString(),
+            "All",
+            token
         )
 
-        call.enqueue(object : Callback<GetStudentsPhotoListMain> {
+        call.enqueue(object : Callback<List<GetStudentsPhotoList>> {
             override fun onResponse(
-                call: Call<GetStudentsPhotoListMain>,
-                response: Response<GetStudentsPhotoListMain>,
+                call: Call<List<GetStudentsPhotoList>>,
+                response: Response<List<GetStudentsPhotoList>>,
             ) {
 
                 if (response.isSuccessful) {
-                    if (response.body()?.status == true) {
+                    val responseList = response.body()
+                    if (responseList != null && responseList.isNotEmpty()) {
                         classDataList.clear()
-                        classDataList =
-                            response.body()?.data as MutableList<GetStudentsPhotoList>
+                        classDataList = responseList.toMutableList()
                         binding.NestedScrollView.visibility = View.VISIBLE
                         binding.rvAttendance.visibility = View.VISIBLE
                         binding.noDataLayout.visibility = View.GONE
@@ -171,7 +190,7 @@ class StudentPhotoListActivity : BaseActivity(), View.OnClickListener,
                 }
             }
 
-            override fun onFailure(call: Call<GetStudentsPhotoListMain>, t: Throwable) {
+            override fun onFailure(call: Call<List<GetStudentsPhotoList>>, t: Throwable) {
                 dismissProgressDialog()
                 //  Log.e("MyResponse", " failure registerApi Error ==> $t.message")
                 showMessage("Something went wrong : ${t.message.toString()} \n onFailure")
