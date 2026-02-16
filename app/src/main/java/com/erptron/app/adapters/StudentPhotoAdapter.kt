@@ -27,7 +27,8 @@ class StudentPhotoAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val data = mList[position]
-        holder.tvName.text = data.roll_no + ". " + data.first_name + " " + data.last_name
+        val displayName = data.student_name?.trim() ?: "${data.first_name.orEmpty()} ${data.last_name.orEmpty()}".trim()
+        holder.tvName.text = "${data.roll_no ?: ""}. $displayName"
         Glide.with(context)
             .load(data.student_photo)
             .apply(RequestOptions().signature(ObjectKey(System.currentTimeMillis())))

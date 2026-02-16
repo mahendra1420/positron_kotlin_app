@@ -147,7 +147,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:weightSum="2">
+        android:weightSum="1">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -188,49 +188,6 @@
                 android:textColor="@color/orangenew"
                 android:textColorHint="@color/orangenew"
                 tools:ignore="Autofill,LabelFor" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginTop="10dp"
-            android:layout_weight="1"
-            android:orientation="horizontal">
-
-            <View
-                android:id="@+id/orangeDot"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_gravity="center"
-                android:layout_marginEnd="5dp"
-                android:background="@drawable/round_orange" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
-                android:fontFamily="@font/arialmt"
-                android:gravity="center_vertical"
-                android:text="RA"
-                android:textColor="@color/menucolor"
-
-
-                android:textSize="17sp" />
-
-            <EditText
-                android:id="@+id/editTextOrange"
-                android:layout_width="35dp"
-                android:layout_height="30dp"
-                android:background="@drawable/newbackground_edit"
-                android:editable="false"
-                android:enabled="false"
-                android:focusable="false"
-                android:inputType="text"
-                android:gravity="center"
-                android:textColor="@color/orangenew"
-                android:textColorHint="@color/orangenew"
-                tools:ignore="Autofill" />
 
         </LinearLayout>
 

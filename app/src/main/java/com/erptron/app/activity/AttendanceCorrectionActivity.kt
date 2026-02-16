@@ -21,7 +21,6 @@ import com.positron.teachers.databinding.ActivityAttendanceCorrectionBinding
 import com.positron.teachers.model.AttendanceData
 import com.positron.teachers.model.AttendanceDays
 import com.positron.teachers.model.SaveAttendance
-import com.positron.teachers.model.StudentAttendanceHistoryByDay
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
@@ -209,40 +208,43 @@ class AttendanceCorrectionActivity : BaseActivity()  , AttendanceCorrectionAdapt
         val loggingInterceptor = HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.BODY
         }
-        val client = OkHttpClient.Builder()
+        val authInterceptor = okhttp3.Interceptor { chain ->
+            val request = chain.request().newBuilder()
+                .addHeader("Authorization", "Bearer ${prefs.getAuthorizationToken()}")
+                .build()
+            chain.proceed(request)
+        }
+        val authClient = OkHttpClient.Builder()
+            .addInterceptor(authInterceptor)
             .addInterceptor(loggingInterceptor)
-            .connectTimeout(120, TimeUnit.SECONDS) // Set connection timeout
-            .readTimeout(120, TimeUnit.SECONDS)    // Set read timeout
-            .writeTimeout(120, TimeUnit.SECONDS)   // Set write timeout
+            .connectTimeout(120, TimeUnit.SECONDS)
+            .readTimeout(120, TimeUnit.SECONDS)
+            .writeTimeout(120, TimeUnit.SECONDS)
             .build()
-
-        val retrofit = Retrofit.Builder()
+        val authRetrofit = Retrofit.Builder()
             .baseUrl(prefs.getErpUrl().toString())
             .addConverterFactory(GsonConverterFactory.create())
-            .client(client)
+            .client(authClient)
             .build()
+        val authLoginApi = authRetrofit.create(ApiClass::class.java)
 
-        val loginApi = retrofit.create(ApiClass::class.java)
-
-        val call = loginApi.getStudentMonthAttendanceHistory(
-            "Bearer ${prefs.getAuthorizationToken().toString()}",
+        val call = authLoginApi.getStudentMonthAttendanceHistory(
             prefs.getClassTeacherClassId().toString(),
             prefs.getTeacherClassSectionId().toString(),
-            monthToSend,
             yearToSend,
-            attendanceCorrectionData?.student_id.toString()
+            monthToSend,
+            attendanceCorrectionData?.admission_no?.takeIf { it.isNotEmpty() } ?: attendanceCorrectionData?.student_id ?: ""
         )
 
-        call.enqueue(object : Callback<StudentAttendanceHistoryByDay> {
+        call.enqueue(object : Callback<List<AttendanceDays>> {
             override fun onResponse(
-                call: Call<StudentAttendanceHistoryByDay>,
-                response: Response<StudentAttendanceHistoryByDay>,
+                call: Call<List<AttendanceDays>>,
+                response: Response<List<AttendanceDays>>,
             ) {
-                Log.e("MyResponse", "Successful ==> ${response.body().toString()}")
                 if (response.isSuccessful) {
-
+                    val dayList = response.body() ?: emptyList()
                     attendanceHistoryList.clear()
-                    attendanceHistoryList.addAll(response.body()?.attendance_data!!.attendance_days)
+                    attendanceHistoryList.addAll(dayList)
                     //response.body()?.attendance_data?.let { attendanceHistoryList.addAll(it) } as MutableList<AttendanceData>
                     if (attendanceHistoryList.isEmpty()) {
                         //     Log.e("MyLogData","if")
@@ -271,7 +273,7 @@ class AttendanceCorrectionActivity : BaseActivity()  , AttendanceCorrectionAdapt
                 }
             }
 
-            override fun onFailure(call: Call<StudentAttendanceHistoryByDay>, t: Throwable) {
+            override fun onFailure(call: Call<List<AttendanceDays>>, t: Throwable) {
                 dismissProgressDialog()
                 Log.e("MyResponse", " failure registerApi Error ==> ${t.message}")
                 showMessage("Something went wrong : ${t.message.toString()} \n onFailure")

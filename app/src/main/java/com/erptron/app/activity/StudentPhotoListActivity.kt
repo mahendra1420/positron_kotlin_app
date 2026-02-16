@@ -93,7 +93,14 @@ class StudentPhotoListActivity : BaseActivity(), View.OnClickListener,
         val loggingInterceptor = HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.BODY
         }
+        val authInterceptor = okhttp3.Interceptor { chain ->
+            val request = chain.request().newBuilder()
+                .addHeader("Authorization", "Bearer ${prefs.getAuthorizationToken()}")
+                .build()
+            chain.proceed(request)
+        }
         val client = OkHttpClient.Builder()
+            .addInterceptor(authInterceptor)
             .addInterceptor(loggingInterceptor)
             .connectTimeout(120, TimeUnit.SECONDS)
             .readTimeout(120, TimeUnit.SECONDS)
@@ -107,6 +114,9 @@ class StudentPhotoListActivity : BaseActivity(), View.OnClickListener,
             .build()
 
         val loginApi = retrofit.create(ApiClass::class.java)
+        val sessionId = prefs.getSchoolId().orEmpty().takeIf { it.isNotEmpty() } ?: prefs.getClassTeacherClassId().orEmpty()
+        val category = "All"
+        val token = "T4veGNVrhnTqUR"
 
         // Get authorization token
         val authToken = prefs.getAuthorizationToken().toString()
@@ -127,12 +137,19 @@ class StudentPhotoListActivity : BaseActivity(), View.OnClickListener,
         val cookieValue = "ci_session=8kvhqpk1rptamb2qr4ijgpvnsrnv72ud" // TODO: Get from login response or preferences
         
         val call = loginApi.getStudentListPhotoSession(
+<<<<<<< HEAD
             cookieValue,
             authorizationHeader,
             prefs.getTeacherId().toString(),
             prefs.getClassTeacherClassId().toString(),
             prefs.getTeacherClassSectionId().toString(),
             "All",
+=======
+            sessionId,
+            prefs.getClassTeacherClassId().toString(),
+            prefs.getTeacherClassSectionId().toString(),
+            category,
+>>>>>>> 12d2d68 (17022026 late night)
             token
         )
 
@@ -141,59 +158,45 @@ class StudentPhotoListActivity : BaseActivity(), View.OnClickListener,
                 call: Call<List<GetStudentsPhotoList>>,
                 response: Response<List<GetStudentsPhotoList>>,
             ) {
-
                 if (response.isSuccessful) {
+<<<<<<< HEAD
                     val responseList = response.body()
                     if (responseList != null && responseList.isNotEmpty()) {
                         classDataList.clear()
                         classDataList = responseList.toMutableList()
+=======
+                    val studentList = response.body() ?: emptyList()
+                    classDataList.clear()
+                    classDataList = studentList.toMutableList()
+
+                    if (classDataList.isEmpty()) {
+                        binding.NestedScrollView.visibility = View.GONE
+                        binding.rvAttendance.visibility = View.GONE
+                        binding.noDataLayout.visibility = View.VISIBLE
+                        binding.btnSave.visibility = View.GONE
+                    } else {
+>>>>>>> 12d2d68 (17022026 late night)
                         binding.NestedScrollView.visibility = View.VISIBLE
                         binding.rvAttendance.visibility = View.VISIBLE
                         binding.noDataLayout.visibility = View.GONE
-                        studentPhotoAdapter =
-                            StudentPhotoAdapter(
-                                this@StudentPhotoListActivity,
-                                classDataList,
-                                this@StudentPhotoListActivity,
-
-
-                            )
+                        studentPhotoAdapter = StudentPhotoAdapter(
+                            this@StudentPhotoListActivity,
+                            classDataList,
+                            this@StudentPhotoListActivity
+                        )
                         binding.rvAttendance.adapter = studentPhotoAdapter
                         studentPhotoAdapter?.notifyDataSetChanged()
-                        dismissProgressDialog()
-                    } else {
-                        binding.NestedScrollView.visibility = View.GONE
-                        binding.rvAttendance.visibility = View.GONE
-                        binding.noDataLayout.visibility = View.VISIBLE
-                        binding.btnSave.visibility = View.GONE
-                        dismissProgressDialog()
                     }
-
-                    /*if (classDataList.isEmpty()) {
-                        binding.NestedScrollView.visibility = View.GONE
-                        binding.rvAttendance.visibility = View.GONE
-                        binding.noDataLayout.visibility = View.VISIBLE
-                        binding.btnSave.visibility = View.GONE
-                    } else {
-                        binding.NestedScrollView.visibility = View.VISIBLE
-                        binding.rvAttendance.visibility = View.VISIBLE
-                        binding.noDataLayout.visibility = View.GONE
-                        studentPhotoAdapter =
-                            StudentPhotoAdapter(this@StudentPhotoListActivity, classDataList,this@StudentPhotoListActivity)
-                        binding.rvAttendance.adapter = studentPhotoAdapter
-
-                    }*/
-
+                    dismissProgressDialog()
                 } else {
                     dismissProgressDialog()
-                    showMessage("Something went wrong : ${response.code()} \n NULL")
+                    showMessage("Something went wrong : ${response.code()}")
                 }
             }
 
             override fun onFailure(call: Call<List<GetStudentsPhotoList>>, t: Throwable) {
                 dismissProgressDialog()
-                //  Log.e("MyResponse", " failure registerApi Error ==> $t.message")
-                showMessage("Something went wrong : ${t.message.toString()} \n onFailure")
+                showMessage("Something went wrong : ${t.message}")
             }
         })
     }

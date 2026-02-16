@@ -1,5 +1,7 @@
 package com.positron.teachers.model
 
+import com.google.gson.annotations.SerializedName
+
 data class StudentAttendanceHistoryByDay(
     var attendance_data: AttendanceDataByDay,
 )
@@ -20,5 +22,6 @@ class AttendanceDataByDay (
 
 class AttendanceDays (
     var date: String? = null,
-    var status: String? = null
+    @SerializedName("attendence") var status: String? = null,
+    var attendance_date: String? = null
 )

@@ -14,7 +14,6 @@ import com.positron.teachers.R
 import com.positron.teachers.api.ApiClass
 import com.positron.teachers.databinding.ActivityAttendanceHistroyBinding
 import com.positron.teachers.model.AttendanceData
-import com.positron.teachers.model.StudentAttendanceHistory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
@@ -229,11 +228,18 @@ class AttendanceHistoryActivity : BaseActivity() , AttendanceHistoryAdapter.Atte
         val loggingInterceptor = HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.BODY
         }
+        val authInterceptor = okhttp3.Interceptor { chain ->
+            val request = chain.request().newBuilder()
+                .addHeader("Authorization", "Bearer ${prefs.getAuthorizationToken()}")
+                .build()
+            chain.proceed(request)
+        }
         val client = OkHttpClient.Builder()
+            .addInterceptor(authInterceptor)
             .addInterceptor(loggingInterceptor)
-            .connectTimeout(120, TimeUnit.SECONDS) // Set connection timeout
-            .readTimeout(120, TimeUnit.SECONDS)    // Set read timeout
-            .writeTimeout(120, TimeUnit.SECONDS)   // Set write timeout
+            .connectTimeout(120, TimeUnit.SECONDS)
+            .readTimeout(120, TimeUnit.SECONDS)
+            .writeTimeout(120, TimeUnit.SECONDS)
             .build()
 
         val retrofit = Retrofit.Builder()
@@ -244,25 +250,22 @@ class AttendanceHistoryActivity : BaseActivity() , AttendanceHistoryAdapter.Atte
 
         val loginApi = retrofit.create(ApiClass::class.java)
 
-        val call = loginApi.getMonthAttendanceHistory(
-            "Bearer ${prefs.getAuthorizationToken().toString()}",
+        val call = loginApi.getTotalAttendanceForMonth(
             prefs.getClassTeacherClassId().toString(),
             prefs.getTeacherClassSectionId().toString(),
-            monthToSend,
-            yearToSend
+            yearToSend,
+            monthToSend
         )
 
-        call.enqueue(object : Callback<StudentAttendanceHistory> {
+        call.enqueue(object : Callback<List<AttendanceData>> {
             override fun onResponse(
-                call: Call<StudentAttendanceHistory>,
-                response: Response<StudentAttendanceHistory>,
+                call: Call<List<AttendanceData>>,
+                response: Response<List<AttendanceData>>,
             ) {
-                Log.e("MyResponse", "Successful ==> ${response.body().toString()}")
                 if (response.isSuccessful) {
-
+                    val studentList = response.body() ?: emptyList()
                     attendanceHistoryList.clear()
-                    attendanceHistoryList.addAll(response.body()?.attendance_data!!)
-                    //response.body()?.attendance_data?.let { attendanceHistoryList.addAll(it) } as MutableList<AttendanceData>
+                    attendanceHistoryList.addAll(studentList)
                     if (attendanceHistoryList.isEmpty()) {
                         //     Log.e("MyLogData","if")
                         binding.NestedScrollView.visibility = View.GONE
@@ -290,7 +293,7 @@ class AttendanceHistoryActivity : BaseActivity() , AttendanceHistoryAdapter.Atte
                 }
             }
 
-            override fun onFailure(call: Call<StudentAttendanceHistory>, t: Throwable) {
+            override fun onFailure(call: Call<List<AttendanceData>>, t: Throwable) {
                 dismissProgressDialog()
                 Log.e("MyResponse", " failure registerApi Error ==> ${t.message}")
                 showMessage("Something went wrong : ${t.message.toString()} \n onFailure")

@@ -140,7 +140,8 @@ class UploadStudentPhotoActivity : BaseActivity(), View.OnClickListener {
         }
         val photoUrl = noticeData?.student_photo
         Log.d("mine", "📸 Student Photo URL: $photoUrl")  // <-- Log added here
-        binding.tvName.text = noticeData?.roll_no + ". " + noticeData?.first_name + " " + noticeData?.last_name
+        val displayName = noticeData?.student_name?.trim() ?: "${noticeData?.first_name.orEmpty()} ${noticeData?.last_name.orEmpty()}".trim()
+        binding.tvName.text = "${noticeData?.roll_no ?: ""}. $displayName"
         Glide.with(this)
             .load(photoUrl)
             .apply(

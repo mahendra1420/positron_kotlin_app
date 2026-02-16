@@ -340,6 +340,7 @@ interface ApiClass {
     @GET("ddl_grades")
     fun getGrades(): Call<Grade>
 
+<<<<<<< HEAD
     @GET("getStudentListPhotoSession/{teacher_id}/{class_id}/{section_id}/{category}/{token}")
     fun getStudentListPhotoSession(
         @Header("Cookie") cookie: String,
@@ -349,6 +350,15 @@ interface ApiClass {
         @Path("section_id") section_id: String,
         @Path("category") category: String,
         @Path("token") token: String,
+=======
+    @GET("getStudentListPhotoSession/{Session_ID}/{Class_ID}/{Section_ID}/{Category}/{Token}")
+    fun getStudentListPhotoSession(
+        @Path("Session_ID") session_id: String,
+        @Path("Class_ID") class_id: String,
+        @Path("Section_ID") section_id: String,
+        @Path("Category") category: String,
+        @Path("Token") token: String,
+>>>>>>> 12d2d68 (17022026 late night)
     ): Call<List<GetStudentsPhotoList>>
 
     @Multipart
@@ -370,16 +380,22 @@ interface ApiClass {
         @Field("year") year: String,
     ): Call<StudentAttendanceHistory>
 
-    @FormUrlEncoded
-    @POST("getStudentMonthAttendanceHistory")
+    @GET("getTotalAttendanceForMonth/{Class_ID}/{Section_ID}/{Year}/{Month}")
+    fun getTotalAttendanceForMonth(
+        @Path("Class_ID") class_id: String,
+        @Path("Section_ID") section_id: String,
+        @Path("Year") year: String,
+        @Path("Month") month: String,
+    ): Call<List<AttendanceData>>
+
+    @GET("getStudentMonthAttendanceHistory/{Class_ID}/{Section_ID}/{Year}/{Month}/{Admission_No}")
     fun getStudentMonthAttendanceHistory(
-        @Header("Authorization") Authorization: String,
-        @Field("class_id") class_id: String,
-        @Field("section_id") section_id: String,
-        @Field("month") month: String,
-        @Field("year") year: String,
-        @Field("student_id") student_id: String,
-    ): Call<StudentAttendanceHistoryByDay>
+        @Path("Class_ID") class_id: String,
+        @Path("Section_ID") section_id: String,
+        @Path("Year") year: String,
+        @Path("Month") month: String,
+        @Path("Admission_No") admission_no: String,
+    ): Call<List<AttendanceDays>>
 
     @FormUrlEncoded
     @POST("getFormat")

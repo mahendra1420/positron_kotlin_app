@@ -37,14 +37,14 @@ class AttendanceHistoryAdapter(
             .error(R.drawable.dummy)
             .into(holder.profile_image)
 
-        holder.tvName.text = attendanceData[position].roll_no + ". " + attendanceData[position].student_name
-        holder.editTextGreen.setText(attendanceData[position].present_count.toString())
-        holder.editTextRed.setText(attendanceData[position].absent_count.toString())
-        holder.editTextYellow.setText(attendanceData[position].holiday_count.toString())
-        holder.editTextOrange.setText(attendanceData[position].remaining_count.toString())
+        val data = attendanceData[position]
+        holder.tvName.text = "${data.roll_no ?: ""}. ${data.student_name ?: ""}"
+        holder.editTextGreen.setText(data.present_count ?: "")
+        holder.editTextRed.setText(data.absent_count ?: "")
+        holder.editTextYellow.setText(data.holiday_count ?: "")
 
         holder.iv_right.setOnClickListener {
-            attendanceHistoryAdapterInterface.onSelected(attendanceData[position])
+            attendanceHistoryAdapterInterface.onSelected(data)
         }
 
 
@@ -59,7 +59,6 @@ class AttendanceHistoryAdapter(
         val editTextGreen: EditText = itemView.findViewById(R.id.editTextGreen)
         val editTextRed: EditText = itemView.findViewById(R.id.editTextRed)
         val editTextYellow: EditText = itemView.findViewById(R.id.editTextYellow)
-        val editTextOrange: EditText = itemView.findViewById(R.id.editTextOrange)
         val iv_right: ImageView = itemView.findViewById(R.id.iv_right)
         val profile_image: ImageView = itemView.findViewById(R.id.profile_image)
     }
